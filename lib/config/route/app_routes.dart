@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:miraa_social_messaging/features/home/presentation/screen/home_screen.dart';
 import '../../features/auth/change_password/presentation/screen/change_password_screen.dart';
 import '../../features/auth/forgot password/presentation/screen/create_password.dart';
 import '../../features/auth/forgot password/presentation/screen/forgot_password.dart';
@@ -36,6 +37,7 @@ class AppRoutes {
   static const String privacyPolicy = "/privacy_policy_screen.dart";
   static const String termsOfServices = "/terms_of_services_screen.dart";
   static const String setting = "/setting_screen.dart";
+  static const String home = "/home_screen.dart";
 
   static List<GetPage> routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
@@ -55,5 +57,6 @@ class AppRoutes {
     GetPage(name: privacyPolicy, page: () => const PrivacyPolicyScreen()),
     GetPage(name: termsOfServices, page: () => const TermsOfServicesScreen()),
     GetPage(name: setting, page: () => const SettingScreen()),
+    GetPage(name: home, page: () => const HomeScreen()),
   ];
 }

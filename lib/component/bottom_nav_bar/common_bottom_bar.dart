@@ -5,7 +5,6 @@ import '../../../config/route/app_routes.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../../../utils/log/app_log.dart';
 
-
 class CommonBottomNavBar extends StatefulWidget {
   final int currentIndex;
 
@@ -17,18 +16,11 @@ class CommonBottomNavBar extends StatefulWidget {
 
 class _CommonBottomNavBarState extends State<CommonBottomNavBar> {
   var bottomNavIndex = 0;
-  List<Widget> unselectedIcons = [
-    const Icon(Icons.settings_outlined, color: AppColors.black),
-    const Icon(Icons.notifications_outlined, color: AppColors.black),
-    const Icon(Icons.chat, color: AppColors.black),
-    const Icon(Icons.person_2_outlined, color: AppColors.black),
-  ];
-
-  List<Widget> selectedIcons = [
-    const Icon(Icons.settings_outlined, color: AppColors.primaryColor),
-    const Icon(Icons.notifications, color: AppColors.primaryColor),
-    const Icon(Icons.chat, color: AppColors.primaryColor),
-    const Icon(Icons.person, color: AppColors.primaryColor),
+  List<Widget> bottomBarIcons = [
+    const Icon(Icons.home, color: AppColors.white),
+    const Icon(Icons.message, color: AppColors.white),
+    const Icon(Icons.person, color: AppColors.white),
+    const Icon(Icons.settings, color: AppColors.white),
   ];
 
   @override
@@ -46,24 +38,27 @@ class _CommonBottomNavBarState extends State<CommonBottomNavBar> {
         alignment: Alignment.center,
         padding: EdgeInsets.all(12.sp),
         decoration: BoxDecoration(
-            color: AppColors.blueLight,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20.r),
-                topRight: Radius.circular(20.r))),
+          color: AppColors.bottomNavBarColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.r),
+            topRight: Radius.circular(20.r),
+          ),
+        ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: List.generate(unselectedIcons.length, (index) {
+          children: List.generate(bottomBarIcons.length, (index) {
             return GestureDetector(
               onTap: () => onTap(index),
               child: Container(
                 margin: EdgeInsetsDirectional.all(12.sp),
-                child: Column(
-                  children: [
-                    index == bottomNavIndex
-                        ? selectedIcons[index]
-                        : unselectedIcons[index],
-                  ],
+                padding: EdgeInsets.all(10.sp),
+                decoration: BoxDecoration(
+                  color: index == bottomNavIndex
+                      ? Color(0xFF027348)
+                      : AppColors.transparent,
+                  borderRadius: BorderRadius.circular(10.r),
                 ),
+                child: Column(children: [bottomBarIcons[index]]),
               ),
             );
           }),
@@ -73,23 +68,23 @@ class _CommonBottomNavBarState extends State<CommonBottomNavBar> {
   }
 
   void onTap(int index) async {
-      appLog(widget.currentIndex, source: "common bottombar");
+    appLog(widget.currentIndex, source: "common bottombar");
 
     if (index == 0) {
       if (!(widget.currentIndex == 0)) {
-        Get.toNamed(AppRoutes.setting);
+        Get.toNamed(AppRoutes.home);
       }
     } else if (index == 1) {
       if (!(widget.currentIndex == 1)) {
-        Get.toNamed(AppRoutes.notifications);
+        Get.toNamed(AppRoutes.chat);
       }
     } else if (index == 2) {
       if (!(widget.currentIndex == 2)) {
-        Get.toNamed(AppRoutes.chat);
+        Get.toNamed(AppRoutes.profile);
       }
     } else if (index == 3) {
       if (!(widget.currentIndex == 3)) {
-        Get.toNamed(AppRoutes.profile);
+        Get.toNamed(AppRoutes.setting);
       }
     }
   }

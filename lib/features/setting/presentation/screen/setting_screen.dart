@@ -65,12 +65,11 @@ class SettingScreen extends StatelessWidget {
 
                 /// Delete Account Item here
                 InkWell(
-                  onTap:
-                      () => deletePopUp(
-                        controller: controller.passwordController,
-                        onTap: controller.deleteAccountRepo,
-                        isLoading: controller.isLoading,
-                      ),
+                  onTap: () => deletePopUp(
+                    controller: controller.passwordController,
+                    onTap: controller.deleteAccountRepo,
+                    isLoading: controller.isLoading,
+                  ),
                   child: Container(
                     height: 52.h,
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -100,7 +99,7 @@ class SettingScreen extends StatelessWidget {
       ),
 
       /// Bottom Navigation Bar Section starts here
-      bottomNavigationBar: const CommonBottomNavBar(currentIndex: 0),
+      bottomNavigationBar: const CommonBottomNavBar(currentIndex: 3),
     );
   }
 }

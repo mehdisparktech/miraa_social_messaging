@@ -27,22 +27,9 @@ class MyApp extends StatelessWidget {
         builder: (context, child) {
           return Container(
             decoration: const BoxDecoration(
-              // gradient: LinearGradient(
-              //   begin: Alignment.topLeft,
-              //   end: Alignment.bottomRight,
-              //   transform: GradientRotation(
-              //     191.05 * 3.1416 / -120,
-              //   ), // degree to radian
-              //   colors: [
-              //     Color(0xFF000000), // #FFFCE6
-              //     Color(0xFFB6E2BC), // #B6E2BC
-              //   ],
-              //   stops: [0.50, 1.0], // Flutter-friendly range
-              // ),
               image: DecorationImage(
                 image: AssetImage("assets/images/bg.png"), // তোমার image path
                 fit: BoxFit.cover,
-                //opacity: 1, // Image transparency (optional)
               ),
             ),
             child: child,
