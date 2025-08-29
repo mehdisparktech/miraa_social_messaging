@@ -37,7 +37,7 @@ class AppString {
   static const String logIntoYourAccount = "Login to Your Account";
   static const String forgotThePassword = "Forgot the password";
   static const String signIn = "Sign in";
-  static const String doNotHaveAccount = "Don’t have an account";
+  static const String doNotHaveAccount = "Don’t have an account? ";
   static const String signUp = "Sign up";
   static const String alreadyHaveAccount = "Already have an account";
   static const String fullName = "Full Name";
@@ -71,4 +71,5 @@ class AppString {
   static const String thePasswordDoesNotMatch = "The password does not match";
   static const String startServer = "Please, start the Server";
   static const String unknownError = "Unknown Error";
+  static const String welcomeBack = "Welcome Back";
 }
