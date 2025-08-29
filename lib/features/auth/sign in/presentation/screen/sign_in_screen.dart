@@ -79,7 +79,7 @@ class SignInScreen extends StatelessWidget {
                       child: GestureDetector(
                         onTap: () => Get.toNamed(AppRoutes.forgotPassword),
                         child: const CommonText(
-                          text: AppString.forgotThePassword,
+                          text: "Forgotten Password?",
                           top: 16,
                           bottom: 32,
                           color: AppColors.yellow,

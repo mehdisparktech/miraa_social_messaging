@@ -113,26 +113,34 @@ class FeedItem extends StatelessWidget {
             // Message container with green border
             Container(
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
-              clipBehavior: Clip.antiAlias,
-              decoration: ShapeDecoration(
-                color: const Color(0xFF01100A),
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                // Gradient background with glow effect
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Color(0xFF027348).withOpacity(0.15), // Soft glow
+                    Color(0xFF01100A),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(8),
+                // Left border only
+                border: Border(
+                  left: BorderSide(
                     width: 4,
-                    color: const Color(0xFF027348) /* Primary */,
+                    color: Color(0xFF027348), // Primary color
                   ),
-                  borderRadius: BorderRadius.circular(9),
                 ),
               ),
               child: CommonText(
                 text:
-                    'Remember, every small step forward is still progress. You\'re doing better than you think! ✨',
-                fontSize: 12,
-                fontWeight: FontWeight.w300,
+                    'Your kindness creates ripples that reach farther than you\'ll ever know. Keep shining! 🌟',
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
                 color: AppColors.body,
-                textAlign: TextAlign.center,
-                maxLines: 2,
+                maxLines: 3,
+                // Line height for relaxed spacing
               ),
             ),
 
