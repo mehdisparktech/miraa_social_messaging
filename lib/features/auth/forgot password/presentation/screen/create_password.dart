@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:miraa_social_messaging/utils/constants/app_colors.dart';
 import '../../../../../../../utils/extensions/extension.dart';
 import '../../../../../component/button/common_button.dart';
-import '../../../../../component/image/common_image.dart';
 import '../../../../../component/text/common_text.dart';
 import '../../../../../component/text_field/common_text_field.dart';
 import '../controller/forget_password_controller.dart';
-import '../../../../../../../utils/constants/app_images.dart';
-import '../../../../../../../utils/constants/app_string.dart';
 import '../../../../../../../utils/helpers/other_helper.dart';
-
 
 class CreatePassword extends StatelessWidget {
   CreatePassword({super.key});
@@ -22,10 +19,9 @@ class CreatePassword extends StatelessWidget {
     return Scaffold(
       /// App Bar Section starts here
       appBar: AppBar(
-        title: const CommonText(
-          text: AppString.createNewPassword,
-          fontWeight: FontWeight.w700,
-          fontSize: 24,
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: const Icon(Icons.arrow_back, color: AppColors.textColor),
         ),
       ),
 
@@ -39,58 +35,53 @@ class CreatePassword extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  64.height,
-
-                  /// Reset password image here
-                  const Center(
-                    child: CommonImage(
-                      imageSrc: AppImages.noImage,
-                      height: 297,
-                      width: 297,
-                    ),
-                  ),
+                  CommonText(
+                    text: "Set New Password",
+                    fontSize: 28,
+                    top: 16,
+                    fontWeight: FontWeight.w700,
+                  ).center,
+                  CommonText(
+                    text: "Choose a strong password to keep your account safe",
+                    fontSize: 14,
+                    bottom: 20,
+                    top: 16,
+                    maxLines: 2,
+                    left: 40,
+                    right: 40,
+                    color: AppColors.secondaryTextColor,
+                    fontWeight: FontWeight.w400,
+                  ).center,
 
                   /// Instruction of Creating New Password
-                  const CommonText(
-                    text: AppString.createYourNewPassword,
-                    fontSize: 18,
-                    textAlign: TextAlign.start,
-                    top: 64,
-                    bottom: 24,
-                  ),
 
                   /// New Password here
-                  const CommonText(text: AppString.password, bottom: 8),
+                  CommonText(text: "New Password", bottom: 8),
                   CommonTextField(
                     controller: controller.passwordController,
                     prefixIcon: const Icon(Icons.lock),
-                    hintText: AppString.password,
+                    hintText: "Enter New Password",
                     isPassword: true,
                     validator: OtherHelper.passwordValidator,
                   ),
 
                   /// Confirm Password here
-                  const CommonText(
-                    text: AppString.password,
-                    bottom: 8,
-                    top: 12,
-                  ),
+                  CommonText(text: "Confirm Password", bottom: 8, top: 12),
                   CommonTextField(
                     controller: controller.confirmPasswordController,
                     prefixIcon: const Icon(Icons.lock),
-                    hintText: AppString.confirmPassword,
-                    validator:
-                        (value) => OtherHelper.confirmPasswordValidator(
-                          value,
-                          controller.passwordController,
-                        ),
+                    hintText: "Re-Enter New Password",
+                    validator: (value) => OtherHelper.confirmPasswordValidator(
+                      value,
+                      controller.passwordController,
+                    ),
                     isPassword: true,
                   ),
                   64.height,
 
                   /// Submit Button here
                   CommonButton(
-                    titleText: AppString.continues,
+                    titleText: "Update Password",
                     isLoading: controller.isLoadingReset,
                     onTap: () {
                       if (formKey.currentState!.validate()) {

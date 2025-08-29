@@ -39,7 +39,7 @@ class AppString {
   static const String signIn = "Sign in";
   static const String doNotHaveAccount = "Don’t have an account? ";
   static const String signUp = "Sign up";
-  static const String alreadyHaveAccount = "Already have an account";
+  static const String alreadyHaveAccount = "Already have an account? ";
   static const String fullName = "Full Name";
   static const String createYourAccount = "Create Your Account";
   static const String otpVerify = "OTP Verify";
@@ -72,4 +72,7 @@ class AppString {
   static const String startServer = "Please, start the Server";
   static const String unknownError = "Unknown Error";
   static const String welcomeBack = "Welcome Back";
+  static const String username = "Username";
+  static const String enterYourEmailToResetPassword =
+      "Enter your email to reset password";
 }

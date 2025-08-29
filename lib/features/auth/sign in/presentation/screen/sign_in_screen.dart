@@ -33,29 +33,29 @@ class SignInScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CommonImage(imageSrc: AppImages.logo, height: 100).center,
+                    CommonImage(imageSrc: AppImages.logo, height: 70).center,
 
                     /// Log In Instruction here
                     CommonText(
                       text: AppString.welcomeBack,
-                      fontSize: 24,
+                      fontSize: 28,
                       top: 16,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w700,
                     ).center,
                     CommonText(
                       text: AppString.logIntoYourAccount,
-                      fontSize: 16,
+                      fontSize: 14,
                       bottom: 20,
                       top: 16,
                       fontWeight: FontWeight.w400,
                     ).center,
 
                     /// Account Email Input here
-                    CommonText(text: AppString.email, bottom: 8),
+                    CommonText(text: AppString.username, bottom: 8),
                     CommonTextField(
                       controller: controller.emailController,
-                      prefixIcon: const Icon(Icons.mail),
-                      hintText: AppString.email,
+                      prefixIcon: const Icon(Icons.person),
+                      hintText: AppString.username,
                       validator: OtherHelper.emailValidator,
                     ),
 

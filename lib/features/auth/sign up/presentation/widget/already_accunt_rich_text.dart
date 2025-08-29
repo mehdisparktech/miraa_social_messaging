@@ -20,7 +20,7 @@ class AlreadyAccountRichText extends StatelessWidget {
           TextSpan(
             text: AppString.alreadyHaveAccount,
             style: GoogleFonts.plusJakartaSans(
-              color: AppColors.black,
+              color: AppColors.white,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -29,13 +29,12 @@ class AlreadyAccountRichText extends StatelessWidget {
           /// Sign In Button Here
           TextSpan(
             text: AppString.signIn,
-            recognizer:
-                TapGestureRecognizer()
-                  ..onTap = () {
-                    Get.toNamed(AppRoutes.signIn);
-                  },
+            recognizer: TapGestureRecognizer()
+              ..onTap = () {
+                Get.toNamed(AppRoutes.signIn);
+              },
             style: GoogleFonts.plusJakartaSans(
-              color: AppColors.primaryColor,
+              color: AppColors.yellow,
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),

@@ -39,6 +39,12 @@ class SignUpController extends GetxController {
   TextEditingController nameController = TextEditingController(
     text: kDebugMode ? "Namimul Hassan" : "",
   );
+  TextEditingController lastNameController = TextEditingController(
+    text: kDebugMode ? "Hassan" : "",
+  );
+  TextEditingController usernameController = TextEditingController(
+    text: kDebugMode ? "namimul" : "",
+  );
   TextEditingController emailController = TextEditingController(
     text: kDebugMode ? "developernaimul00@gmail.com" : '',
   );
@@ -122,7 +128,7 @@ class SignUpController extends GetxController {
   }
 
   Future<void> verifyOtpRepo() async {
-    Get.toNamed(AppRoutes.signIn);
+    Get.offAllNamed(AppRoutes.signIn);
     return;
 
     isLoadingVerify = true;

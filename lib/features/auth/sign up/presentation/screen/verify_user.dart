@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import '../../../../../../utils/extensions/extension.dart';
 import '../../../../../component/button/common_button.dart';
 import '../../../../../component/text/common_text.dart';
 import '../controller/sign_up_controller.dart';
@@ -29,10 +30,9 @@ class _VerifyUserState extends State<VerifyUser> {
     return Scaffold(
       /// App Bar Section starts here
       appBar: AppBar(
-        title: const CommonText(
-          text: AppString.otpVerify,
-          fontWeight: FontWeight.w700,
-          fontSize: 24,
+        leading: IconButton(
+          onPressed: () => Get.back(),
+          icon: const Icon(Icons.arrow_back, color: AppColors.textColor),
         ),
       ),
 
@@ -45,18 +45,27 @@ class _VerifyUserState extends State<VerifyUser> {
               key: formKey,
               child: Column(
                 children: [
-                  /// instruction how to get OTP
-                  Center(
-                    child: CommonText(
-                      text:
-                          "${AppString.codeHasBeenSendTo} ${controller.emailController.text}",
-                      fontSize: 18,
-                      top: 100,
-                      bottom: 60,
-                      maxLines: 3,
-                    ),
-                  ),
+                  /// Title of the screen
+                  CommonText(
+                    text: "Verify OTP",
+                    fontSize: 28,
+                    top: 16,
+                    fontWeight: FontWeight.w700,
+                  ).center,
 
+                  /// instruction how to get OTP
+                  CommonText(
+                    text:
+                        "Enter the 6-digit code we’ve sent to your email ${controller.emailController.text}",
+                    fontSize: 14,
+                    top: 16,
+                    bottom: 30,
+                    maxLines: 2,
+                    left: 30,
+                    right: 30,
+                    color: AppColors.secondaryTextColor,
+                    fontWeight: FontWeight.w400,
+                  ),
 
                   /// OTP Filed here
                   Flexible(
@@ -64,21 +73,26 @@ class _VerifyUserState extends State<VerifyUser> {
                     child: PinCodeTextField(
                       controller: controller.otpController,
                       autoDisposeControllers: false,
-                      cursorColor: AppColors.black,
+                      cursorColor: AppColors.white,
                       appContext: (context),
                       autoFocus: true,
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.white,
+                      ),
                       pinTheme: PinTheme(
                         shape: PinCodeFieldShape.box,
                         borderRadius: BorderRadius.circular(16.r),
-                        fieldHeight: 60.h,
-                        fieldWidth: 60.w,
+                        fieldHeight: 50.h,
+                        fieldWidth: 50.w,
                         activeFillColor: AppColors.transparent,
                         selectedFillColor: AppColors.transparent,
                         inactiveFillColor: AppColors.transparent,
                         borderWidth: 0.5.w,
-                        selectedColor: AppColors.primaryColor,
+                        selectedColor: AppColors.white,
                         activeColor: AppColors.primaryColor,
-                        inactiveColor: AppColors.black,
+                        inactiveColor: AppColors.secondaryTextColor,
                       ),
                       length: 6,
                       keyboardType: TextInputType.number,
@@ -96,21 +110,20 @@ class _VerifyUserState extends State<VerifyUser> {
 
                   /// Resent OTP or show Timer
                   GestureDetector(
-                    onTap:
-                        controller.time == '00:00'
-                            ? () {
-                              controller.startTimer();
-                              controller.signUpUser();
-                            }
-                            : () {},
+                    onTap: controller.time == '00:00'
+                        ? () {
+                            controller.startTimer();
+                            controller.signUpUser();
+                          }
+                        : () {},
                     child: CommonText(
-                      text:
-                          controller.time == '00:00'
-                              ? AppString.resendCode
-                              : "${AppString.resendCodeIn} ${controller.time} ${AppString.minute}",
-                      top: 60,
-                      bottom: 100,
+                      text: controller.time == '00:00'
+                          ? "00:00"
+                          : " ${controller.time} ${AppString.minute}",
+                      top: 24,
+                      bottom: 24,
                       fontSize: 18,
+                      color: AppColors.yellow,
                     ),
                   ),
 
@@ -123,6 +136,23 @@ class _VerifyUserState extends State<VerifyUser> {
                         controller.verifyOtpRepo();
                       }
                     },
+                  ),
+
+                  /// Resent OTP or show Timer
+                  GestureDetector(
+                    onTap: controller.time == '00:00'
+                        ? () {
+                            controller.startTimer();
+                            controller.signUpUser();
+                          }
+                        : () {},
+                    child: CommonText(
+                      text: controller.time == '00:00' ? "Resend OTP" : "",
+                      top: 24,
+                      bottom: 24,
+                      fontSize: 18,
+                      color: AppColors.yellow,
+                    ),
                   ),
                 ],
               ),

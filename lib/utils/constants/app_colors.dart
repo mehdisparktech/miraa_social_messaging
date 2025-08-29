@@ -6,6 +6,9 @@ class AppColors {
   static const Color background = Color(0xFFFAFAFA);
   static const Color yellow = Color(0xFFCF9702);
   static const Color body = Color(0xFFBDBDBD);
+  static const Color borderColor = Color(0xFF404040);
+  static const Color textColor = Color(0xFFF1F1F1);
+  static const Color secondaryTextColor = Color(0xFFA1A1A1);
 
   static const Color transparent = Colors.transparent;
   static const Color white = Colors.white;
