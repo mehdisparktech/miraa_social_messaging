@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../../../../../config/route/app_routes.dart';
-import '../../../../../../utils/extensions/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../../component/bottom_nav_bar/common_bottom_bar.dart';
@@ -31,11 +30,9 @@ class SettingScreen extends StatelessWidget {
       body: GetBuilder<SettingController>(
         builder: (controller) {
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 30.w),
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Column(
               children: [
-                70.height,
-
                 /// Change password Item here
                 InkWell(
                   onTap: () => Get.toNamed(AppRoutes.changePassword),
@@ -62,6 +59,51 @@ class SettingScreen extends StatelessWidget {
                     iconDate: Icons.network_wifi_1_bar,
                   ),
                 ),
+                InkWell(
+                  onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
+                  child: const SettingItem(
+                    title: "About",
+                    iconDate: Icons.info_outline_rounded,
+                  ),
+                ),
+                InkWell(
+                  onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
+                  child: const SettingItem(
+                    title: "FAQ",
+                    iconDate: Icons.help_outline_rounded,
+                  ),
+                ),
+                InkWell(
+                  onTap: () => deletePopUp(
+                    controller: controller.passwordController,
+                    onTap: controller.deleteAccountRepo,
+                    isLoading: controller.isLoading,
+                  ),
+                  child: Container(
+                    height: 52.h,
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    decoration: BoxDecoration(
+                      color: AppColors.transparent,
+                      borderRadius: BorderRadius.circular(10.r),
+                      border: Border.all(
+                        color: AppColors.borderColor.withOpacity(0.3),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(
+                          Icons.help_outline_rounded,
+                          color: AppColors.secondary,
+                        ),
+                        CommonText(
+                          text: "Help & Support",
+                          color: AppColors.secondary,
+                          left: 12.w,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
 
                 /// Delete Account Item here
                 InkWell(
@@ -74,18 +116,21 @@ class SettingScreen extends StatelessWidget {
                     height: 52.h,
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     decoration: BoxDecoration(
-                      color: AppColors.blueLight,
-                      borderRadius: BorderRadius.circular(4.r),
+                      color: AppColors.transparent,
+                      borderRadius: BorderRadius.circular(10.r),
+                      border: Border.all(
+                        color: AppColors.borderColor.withOpacity(0.3),
+                      ),
                     ),
                     child: Row(
                       children: [
                         const Icon(
                           Icons.delete_outline_rounded,
-                          color: AppColors.secondary,
+                          color: AppColors.red,
                         ),
                         CommonText(
                           text: AppString.deleteAccount,
-                          color: AppColors.secondary,
+                          color: AppColors.red,
                           left: 12.w,
                         ),
                       ],
