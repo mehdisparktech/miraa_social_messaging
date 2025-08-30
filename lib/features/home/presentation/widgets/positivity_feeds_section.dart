@@ -84,29 +84,30 @@ class PositivityFeedsSection extends StatelessWidget {
       },
     ];
 
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-      decoration: BoxDecoration(
-        color: const Color(0xFF01100A),
-        borderRadius: BorderRadius.circular(10.r),
-        border: Border.all(color: AppColors.borderColor.withOpacity(0.3)),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CommonText(
-            text: "Positivity Feeds",
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: AppColors.textColor,
-            textAlign: TextAlign.left,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CommonText(
+          text: "Positivity Feeds",
+          fontSize: 18,
+          fontWeight: FontWeight.w600,
+          color: AppColors.textColor,
+          textAlign: TextAlign.left,
+        ),
+        SizedBox(height: 16.h),
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 10.h),
+          decoration: BoxDecoration(
+            color: Color(0xFF000804),
+            borderRadius: BorderRadius.circular(10.r),
+            border: Border.all(color: AppColors.borderColor2),
           ),
-          SizedBox(height: 16.h),
-          ListView.separated(
+          child: ListView.separated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: feedData.length,
-            separatorBuilder: (context, index) => SizedBox(height: 16.h),
+            separatorBuilder: (context, index) =>
+                Divider(color: AppColors.borderColor2, height: 1),
             itemBuilder: (context, index) {
               final feed = feedData[index];
               return FeedItem(
@@ -122,8 +123,8 @@ class PositivityFeedsSection extends StatelessWidget {
               );
             },
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

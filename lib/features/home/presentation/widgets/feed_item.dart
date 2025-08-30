@@ -36,8 +36,8 @@ class FeedItem extends StatelessWidget {
       //height: 182.h,
       clipBehavior: Clip.antiAlias,
       decoration: ShapeDecoration(
+        color: Color(0xFF000804),
         shape: RoundedRectangleBorder(
-          side: BorderSide(width: 1, color: const Color(0xFF3F3F3F)),
           borderRadius: BorderRadius.circular(12.r),
         ),
       ),
@@ -116,19 +116,19 @@ class FeedItem extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                 // Gradient background with glow effect
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0xFF027348).withOpacity(0.15), // Soft glow
-                    Color(0xFF01100A),
-                  ],
-                ),
-                borderRadius: BorderRadius.circular(8),
+                // gradient: LinearGradient(
+                //   begin: Alignment.topLeft,
+                //   end: Alignment.bottomRight,
+                //   colors: [
+                //     Color(0xFF027348).withOpacity(0.15), // Soft glow
+                //     Color(0xFF01100A),
+                //   ],
+                // ),
+                borderRadius: BorderRadius.circular(8.r),
                 // Left border only
                 border: Border(
                   left: BorderSide(
-                    width: 4,
+                    width: 4.w,
                     color: Color(0xFF027348), // Primary color
                   ),
                 ),
