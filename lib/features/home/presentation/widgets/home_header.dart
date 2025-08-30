@@ -37,7 +37,7 @@ class HomeHeader extends StatelessWidget {
                   textAlign: TextAlign.left,
                 ),
                 CommonText(
-                  text: "Send Some Positivity ✨",
+                  text: "Send Some Positivity 💫",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   color: AppColors.secondaryTextColor,

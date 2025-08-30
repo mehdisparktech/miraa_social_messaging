@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
+import 'package:miraa_social_messaging/utils/constants/app_colors.dart';
 
 class HomeController extends GetxController {
   final TextEditingController messageController = TextEditingController();
@@ -11,6 +14,15 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     // Initialize any data loading here
+    Fluttertoast.showToast(
+      msg: "Message sent to a random people",
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: AppColors.primaryColor,
+      textColor: AppColors.white,
+      fontSize: 16.sp,
+    );
   }
 
   void sendMessage() {
