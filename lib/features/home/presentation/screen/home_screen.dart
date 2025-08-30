@@ -30,7 +30,6 @@ class HomeScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: Column(
                         children: [
-                          SizedBox(height: 20.h),
                           const MessageInputSection(),
                           SizedBox(height: 24.h),
                           const StreakSection(),

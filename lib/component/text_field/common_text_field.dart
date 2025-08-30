@@ -32,6 +32,7 @@ class CommonTextField extends StatelessWidget {
     this.onSubmitted,
     this.onTap,
     this.suffixIcon,
+    this.expands = false,
   });
 
   final String? hintText;
@@ -57,10 +58,12 @@ class CommonTextField extends StatelessWidget {
   final FormFieldValidator? validator;
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
-
+  final bool expands;
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: expands ? null : 5,
+      expands: expands,
       autovalidateMode: AutovalidateMode.onUnfocus,
       keyboardType: keyboardType,
       controller: controller,
@@ -91,8 +94,8 @@ class CommonTextField extends StatelessWidget {
         errorBorder: _buildBorder(),
         hintText: hintText,
         labelText: labelText,
-        hintStyle: GoogleFonts.roboto(fontSize: 14, color: hintTextColor),
-        labelStyle: GoogleFonts.roboto(fontSize: 14, color: labelTextColor),
+        hintStyle: GoogleFonts.poppins(fontSize: 14, color: hintTextColor),
+        labelStyle: GoogleFonts.poppins(fontSize: 14, color: labelTextColor),
         prefix: CommonText(text: prefixText ?? "", fontWeight: FontWeight.w400),
         suffixIcon: isPassword ? _buildPasswordSuffixIcon() : suffixIcon,
       ),

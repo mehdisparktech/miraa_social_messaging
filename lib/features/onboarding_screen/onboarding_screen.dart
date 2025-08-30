@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miraa_social_messaging/utils/constants/app_colors.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../utils/extensions/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -65,17 +66,27 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           children: [
             // Skip button
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+              padding: EdgeInsets.symmetric(horizontal: 2.w, vertical: 2.h),
               child: Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   onPressed: () => Get.toNamed(AppRoutes.signIn),
-                  child: Text(
-                    'Skip',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w500,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 16.w,
+                      vertical: 8.h,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24.r),
+                      border: Border.all(color: AppColors.yellow),
+                    ),
+                    child: Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: AppColors.textColor,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),

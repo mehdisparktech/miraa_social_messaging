@@ -18,7 +18,7 @@ class DoNotHaveAccount extends StatelessWidget {
         children: [
           TextSpan(
             text: AppString.doNotHaveAccount,
-            style: GoogleFonts.plusJakartaSans(
+            style: GoogleFonts.poppins(
               color: AppColors.textColor,
               fontSize: 14,
               fontWeight: FontWeight.w500,
@@ -32,7 +32,7 @@ class DoNotHaveAccount extends StatelessWidget {
               ..onTap = () {
                 Get.toNamed(AppRoutes.signUp);
               },
-            style: GoogleFonts.plusJakartaSans(
+            style: GoogleFonts.poppins(
               color: AppColors.yellow,
               fontSize: 14,
               fontWeight: FontWeight.w600,

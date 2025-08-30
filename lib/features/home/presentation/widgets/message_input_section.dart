@@ -18,18 +18,27 @@ class MessageInputSection extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           child: Column(
             children: [
-              CommonTextField(
-                controller: controller.messageController,
-                hintText:
-                    "Write an inspiring message to brighten someone's day...",
-                fillColor: AppColors.transparent,
-                borderColor: AppColors.borderColor.withOpacity(0.5),
-                hintTextColor: AppColors.secondaryTextColor,
-                textColor: AppColors.textColor,
-                paddingVertical: 16,
-                borderRadius: 8,
-                keyboardType: TextInputType.multiline,
-                textInputAction: TextInputAction.newline,
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.transparent,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: Color(0xFF027348)),
+                ),
+                height: 120.h,
+                child: CommonTextField(
+                  expands: true,
+                  controller: controller.messageController,
+                  hintText:
+                      "Write an inspiring message to brighten someone's day...",
+                  fillColor: AppColors.transparent,
+                  borderColor: AppColors.borderColor.withOpacity(0.5),
+                  hintTextColor: AppColors.secondaryTextColor,
+                  textColor: AppColors.textColor,
+                  paddingVertical: 0,
+                  borderRadius: 8,
+                  keyboardType: TextInputType.multiline,
+                  textInputAction: TextInputAction.newline,
+                ),
               ),
               SizedBox(height: 16.h),
               Row(
