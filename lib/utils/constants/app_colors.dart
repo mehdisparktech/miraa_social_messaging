@@ -11,6 +11,7 @@ class AppColors {
   static const Color secondaryTextColor = Color(0xFFA1A1A1);
   static const Color bottomNavBarColor = Color(0xFF01120F);
   static const Color borderColor2 = Color(0xFF404040);
+  static const Color massagesBackGroundColor = Color(0xFF01100A);
 
   static const Color transparent = Colors.transparent;
   static const Color white = Colors.white;

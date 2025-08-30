@@ -12,25 +12,30 @@ class SettingItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 52.h,
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
-      margin: EdgeInsets.only(bottom: 15.h),
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
       decoration: BoxDecoration(
-        color: AppColors.transparent,
+        color: Colors.black.withValues(alpha: 0.25),
         borderRadius: BorderRadius.circular(10.r),
-        border: Border.all(color: AppColors.borderColor.withOpacity(0.3)),
+        border: Border.all(color: Color(0xFF3F3F3F)),
       ),
       child: Row(
         children: [
           /// show icon here
-          Icon(iconDate, color: AppColors.secondary),
+          Icon(iconDate, color: AppColors.secondaryTextColor),
 
           /// show Title here
-          CommonText(text: title, color: AppColors.secondary, left: 12),
+          CommonText(
+            text: title,
+            color: AppColors.secondaryTextColor,
+            left: 12,
+          ),
           const Spacer(),
 
           /// show Icon here
-          const Icon(Icons.arrow_forward_ios, color: AppColors.secondary),
+          const Icon(
+            Icons.arrow_forward_ios,
+            color: AppColors.secondaryTextColor,
+          ),
         ],
       ),
     );

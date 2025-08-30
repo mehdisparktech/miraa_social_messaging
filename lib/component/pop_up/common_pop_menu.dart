@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:miraa_social_messaging/component/image/common_image.dart';
+import 'package:miraa_social_messaging/utils/constants/app_images.dart';
+import 'package:miraa_social_messaging/utils/extensions/extension.dart';
 import 'package:miraa_social_messaging/utils/helpers/other_helper.dart';
 import '../../../services/storage/storage_services.dart';
 import '../../../utils/constants/app_colors.dart';
@@ -161,6 +164,8 @@ deletePopUp({
     builder: (context) {
       return AnimationPopUp(
         child: AlertDialog(
+          backgroundColor: Color(0xFF032E1E),
+
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12.0),
           ),
@@ -170,22 +175,28 @@ deletePopUp({
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                CommonImage(
+                  imageSrc: AppImages.noData,
+                  height: 100,
+                  width: 100,
+                ).center,
                 Center(
                   child: CommonText(
-                    text: AppString.areYouSure,
+                    text: "Are you sure you want to delete your account?",
                     fontSize: 20.sp,
                     fontWeight: FontWeight.w700,
-                    color: AppColors.black,
-                    maxLines: 1,
+                    color: AppColors.white,
+                    maxLines: 2,
                     bottom: 24.h,
                   ),
                 ),
                 CommonText(
-                  text: AppString.deleteDetails,
+                  text:
+                      "Deleting your account is permanent. All your data will be lost. This action cannot be undone. Please confirm your password to continue.",
                   fontSize: 16.sp,
                   fontWeight: FontWeight.w500,
-                  color: AppColors.black,
-                  maxLines: 2,
+                  color: AppColors.secondaryTextColor,
+                  maxLines: 3,
                   bottom: 20.h,
                 ),
                 CommonTextField(
@@ -200,29 +211,36 @@ deletePopUp({
             Row(
               children: [
                 Expanded(
-                  child: CommonButton(
-                    titleText: AppString.cancel,
-                    titleColor: AppColors.black,
-                    borderColor: AppColors.black,
-                    buttonColor: AppColors.transparent,
-                    buttonRadius: 4.r,
-                    buttonHeight: 48.h,
-                    onTap: AnimationPopUpState.closeDialog,
+                  child: TextButton(
+                    onPressed: AnimationPopUpState.closeDialog,
+                    style: TextButton.styleFrom(
+                      backgroundColor: AppColors.primaryColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                    ),
+                    child: CommonText(
+                      text: AppString.cancel,
+                      color: AppColors.white,
+                    ),
                   ),
                 ),
                 SizedBox(width: 16.w),
                 Expanded(
-                  child: CommonButton(
-                    titleText: AppString.done,
-                    titleColor: AppColors.white,
-                    buttonRadius: 4.r,
-                    buttonHeight: 48.h,
-                    onTap: () async {
+                  child: TextButton(
+                    onPressed: () async {
                       if (formKey.currentState!.validate()) {
                         await AnimationPopUpState.closeDialog();
                         onTap();
                       }
                     },
+                    style: TextButton.styleFrom(
+                      backgroundColor: AppColors.red,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(4.r),
+                      ),
+                    ),
+                    child: CommonText(text: "Yes", color: AppColors.white),
                   ),
                 ),
               ],

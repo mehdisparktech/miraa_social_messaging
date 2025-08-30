@@ -24,6 +24,10 @@ class UserListItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+        decoration: BoxDecoration(
+          color: Color(0xFF121215),
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Row(
           children: [
             // Avatar

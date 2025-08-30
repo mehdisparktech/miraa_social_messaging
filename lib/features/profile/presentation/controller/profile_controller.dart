@@ -25,7 +25,10 @@ class ProfileController extends GetxController {
   bool isLoading = false;
 
   /// all controller here
-  TextEditingController nameController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController numberController = TextEditingController();
 
   /// select image function here
@@ -50,8 +53,10 @@ class ProfileController extends GetxController {
     update();
 
     Map<String, String> body = {
-      "fullName": nameController.text,
-      "phone": numberController.text,
+      "firstName": firstNameController.text,
+      "lastName": lastNameController.text,
+      "username": usernameController.text,
+      "email": emailController.text,
     };
 
     var response = await ApiService.multipart(

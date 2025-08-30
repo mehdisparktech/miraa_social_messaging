@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import 'feed_item.dart';
 
-class PositivityFeedsSection extends StatelessWidget {
-  const PositivityFeedsSection({super.key});
+class YourFeedsSection extends StatelessWidget {
+  const YourFeedsSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -87,14 +86,6 @@ class PositivityFeedsSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CommonText(
-          text: "Positivity Feeds",
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          color: AppColors.textColor,
-          textAlign: TextAlign.left,
-        ),
-        SizedBox(height: 16.h),
         Container(
           padding: EdgeInsets.symmetric(vertical: 10.h),
           decoration: BoxDecoration(

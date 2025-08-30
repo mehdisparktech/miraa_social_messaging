@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 import 'package:miraa_social_messaging/features/home/presentation/screen/home_screen.dart';
+import 'package:miraa_social_messaging/features/setting/presentation/screen/about_screen.dart';
+import 'package:miraa_social_messaging/features/setting/presentation/screen/faq_screen.dart';
+import 'package:miraa_social_messaging/features/setting/presentation/screen/help_and_support_screen.dart';
 import '../../features/auth/change_password/presentation/screen/change_password_screen.dart';
 import '../../features/auth/forgot password/presentation/screen/create_password.dart';
 import '../../features/auth/forgot password/presentation/screen/forgot_password.dart';
@@ -38,6 +41,9 @@ class AppRoutes {
   static const String termsOfServices = "/terms_of_services_screen.dart";
   static const String setting = "/setting_screen.dart";
   static const String home = "/home_screen.dart";
+  static const String helpAndSupport = "/help_and_support_screen.dart";
+  static const String about = "/about_screen.dart";
+  static const String faq = "/faq_screen.dart";
 
   static List<GetPage> routes = [
     GetPage(name: splash, page: () => const SplashScreen()),
@@ -58,5 +64,8 @@ class AppRoutes {
     GetPage(name: termsOfServices, page: () => const TermsOfServicesScreen()),
     GetPage(name: setting, page: () => const SettingScreen()),
     GetPage(name: home, page: () => const HomeScreen()),
+    GetPage(name: helpAndSupport, page: () => const HelpAndSupportScreen()),
+    GetPage(name: about, page: () => const AboutScreen()),
+    GetPage(name: faq, page: () => const FaqScreen()),
   ];
 }

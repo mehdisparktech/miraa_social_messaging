@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:miraa_social_messaging/utils/constants/app_images.dart';
 import '../../../../component/text_field/common_text_field.dart';
 import '../../../../component/button/common_button.dart';
 import '../../../../utils/constants/app_colors.dart';
@@ -13,12 +14,8 @@ class MessageInputSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<HomeController>(
       builder: (controller) {
-        return Container(
-          padding: EdgeInsets.all(16.w),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.r),
-            border: Border.all(color: AppColors.borderColor.withOpacity(0.3)),
-          ),
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
           child: Column(
             children: [
               CommonTextField(
@@ -39,7 +36,9 @@ class MessageInputSection extends StatelessWidget {
                 children: [
                   Expanded(
                     child: CommonButton(
-                      titleText: "🔥 Send",
+                      isIcon: true,
+                      iconImage: AppImages.noData,
+                      titleText: "Send",
                       titleSize: 16,
                       buttonHeight: 44.h,
                       buttonRadius: 8,

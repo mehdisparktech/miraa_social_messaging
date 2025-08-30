@@ -41,6 +41,7 @@ class SettingScreen extends StatelessWidget {
                     iconDate: Icons.lock_outline,
                   ),
                 ),
+                SizedBox(height: 16.h),
 
                 /// Terms of Service Item here
                 InkWell(
@@ -50,6 +51,7 @@ class SettingScreen extends StatelessWidget {
                     iconDate: Icons.gavel,
                   ),
                 ),
+                SizedBox(height: 16.h),
 
                 /// Privacy Policy Item here
                 InkWell(
@@ -59,51 +61,33 @@ class SettingScreen extends StatelessWidget {
                     iconDate: Icons.network_wifi_1_bar,
                   ),
                 ),
+                SizedBox(height: 16.h),
+
+                /// About Item here
                 InkWell(
-                  onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
+                  onTap: () => Get.toNamed(AppRoutes.about),
                   child: const SettingItem(
                     title: "About",
                     iconDate: Icons.info_outline_rounded,
                   ),
                 ),
+                SizedBox(height: 16.h),
                 InkWell(
-                  onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
+                  onTap: () => Get.toNamed(AppRoutes.faq),
                   child: const SettingItem(
                     title: "FAQ",
                     iconDate: Icons.help_outline_rounded,
                   ),
                 ),
+                SizedBox(height: 16.h),
                 InkWell(
-                  onTap: () => deletePopUp(
-                    controller: controller.passwordController,
-                    onTap: controller.deleteAccountRepo,
-                    isLoading: controller.isLoading,
-                  ),
-                  child: Container(
-                    height: 52.h,
-                    padding: EdgeInsets.symmetric(horizontal: 20.w),
-                    decoration: BoxDecoration(
-                      color: AppColors.transparent,
-                      borderRadius: BorderRadius.circular(10.r),
-                      border: Border.all(
-                        color: AppColors.borderColor.withOpacity(0.3),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(
-                          Icons.help_outline_rounded,
-                          color: AppColors.secondary,
-                        ),
-                        CommonText(
-                          text: "Help & Support",
-                          color: AppColors.secondary,
-                          left: 12.w,
-                        ),
-                      ],
-                    ),
+                  onTap: () => Get.toNamed(AppRoutes.helpAndSupport),
+                  child: const SettingItem(
+                    title: "Help & Support",
+                    iconDate: Icons.help_outline,
                   ),
                 ),
+                SizedBox(height: 16.h),
 
                 /// Delete Account Item here
                 InkWell(
@@ -116,11 +100,9 @@ class SettingScreen extends StatelessWidget {
                     height: 52.h,
                     padding: EdgeInsets.symmetric(horizontal: 20.w),
                     decoration: BoxDecoration(
-                      color: AppColors.transparent,
+                      color: Colors.black.withValues(alpha: 0.25),
                       borderRadius: BorderRadius.circular(10.r),
-                      border: Border.all(
-                        color: AppColors.borderColor.withOpacity(0.3),
-                      ),
+                      border: Border.all(color: Color(0xFF3F3F3F)),
                     ),
                     child: Row(
                       children: [

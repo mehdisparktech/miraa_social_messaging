@@ -28,7 +28,7 @@ class InboxFeedItem extends StatelessWidget {
       width: double.infinity,
       clipBehavior: Clip.antiAlias,
       decoration: ShapeDecoration(
-        color: Color(0xFF000804),
+        color: AppColors.transparent,
         shape: RoundedRectangleBorder(
           side: BorderSide(color: AppColors.borderColor2, width: 1.w),
           borderRadius: BorderRadius.circular(12.r),
@@ -70,6 +70,7 @@ class InboxFeedItem extends StatelessWidget {
               width: double.infinity,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
+                color: AppColors.massagesBackGroundColor,
                 borderRadius: BorderRadius.circular(8.r),
                 // Left border only
                 border: Border(

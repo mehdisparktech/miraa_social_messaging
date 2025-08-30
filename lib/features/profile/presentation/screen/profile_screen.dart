@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:miraa_social_messaging/services/storage/storage_keys.dart';
-import '../../../../../../config/route/app_routes.dart';
+import 'package:miraa_social_messaging/component/image/common_image.dart';
+import 'package:miraa_social_messaging/config/route/app_routes.dart';
+import 'package:miraa_social_messaging/features/profile/presentation/widgets/your_feeds_section.dart';
+import 'package:miraa_social_messaging/utils/constants/app_colors.dart';
+import 'package:miraa_social_messaging/utils/constants/app_images.dart';
 import '../../../../component/bottom_nav_bar/common_bottom_bar.dart';
-import '../../../../component/image/common_image.dart';
-import '../../../../component/other_widgets/item.dart';
-import '../../../../component/pop_up/common_pop_menu.dart';
 import '../../../../component/text/common_text.dart';
 import '../controller/profile_controller.dart';
-import '../../../../../../utils/constants/app_images.dart';
 import '../../../../../../utils/constants/app_string.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -31,82 +30,16 @@ class ProfileScreen extends StatelessWidget {
       /// Body Section Starts here
       body: GetBuilder<ProfileController>(
         builder: (controller) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
-            child: Column(
-              children: [
-                /// User Profile Image here
-                Center(
-                  child: CircleAvatar(
-                    radius: 85.sp,
-                    backgroundColor: Colors.transparent,
-                    child: const ClipOval(
-                      child: CommonImage(
-                        imageSrc: AppImages.profile,
-                        size: 170,
-                        defaultImage: AppImages.profile,
-                      ),
-                    ),
-                  ),
-                ),
-
-                /// User Name here
-                const CommonText(
-                  text: LocalStorageKeys.myName,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                  top: 20,
-                  bottom: 24,
-                ),
-
-                /// Edit Profile item here
-                Item(
-                  icon: Icons.person,
-                  title: AppString.editProfile,
-                  onTap: () => Get.toNamed(AppRoutes.editProfile),
-                ),
-
-                /// Setting item here
-                Item(
-                  icon: Icons.settings,
-                  title: AppString.settings,
-                  onTap: () => Get.toNamed(AppRoutes.setting),
-                ),
-
-                /// Language item here
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(Icons.language),
-                          CommonText(
-                            text: controller.selectedLanguage,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 18,
-                            left: 16,
-                          ),
-                          const Spacer(),
-                          PopUpMenu(
-                            items: controller.languages,
-                            selectedItem: [controller.selectedLanguage],
-                            onTap: controller.selectLanguage,
-                          ),
-                        ],
-                      ),
-                      const Divider(),
-                    ],
-                  ),
-                ),
-
-                /// Log Out item here
-                Item(
-                  icon: Icons.logout,
-                  title: AppString.logOut,
-                  onTap: logOutPopUp,
-                ),
-              ],
+          return SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+              child: Column(
+                children: [
+                  _profileSection(),
+                  SizedBox(height: 24.h),
+                  YourFeedsSection(),
+                ],
+              ),
             ),
           );
         },
@@ -114,6 +47,94 @@ class ProfileScreen extends StatelessWidget {
 
       /// Bottom Navigation Bar Section Starts here
       bottomNavigationBar: const CommonBottomNavBar(currentIndex: 2),
+    );
+  }
+
+  Widget _profileSection() {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(12.sp),
+      clipBehavior: Clip.antiAlias,
+      decoration: ShapeDecoration(
+        gradient: LinearGradient(
+          begin: Alignment(1.17, 0.50),
+          end: Alignment(-0.15, 0.36),
+          colors: [const Color(0xFF2C5B38), const Color(0xFF152A20)],
+        ),
+        shape: RoundedRectangleBorder(
+          side: BorderSide(width: 1.50, color: const Color(0xFF027348)),
+          borderRadius: BorderRadius.circular(16),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 25.sp,
+            backgroundColor: AppColors.white,
+            child: ClipOval(
+              child: CommonImage(
+                imageSrc: AppImages.profile,
+                height: 50,
+                width: 50,
+              ),
+            ),
+          ),
+          SizedBox(width: 12.w),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CommonText(
+                  text: 'Mira Khan',
+                  color: AppColors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                ),
+
+                CommonText(
+                  text: '@mira1998',
+                  color: AppColors.yellow,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                ),
+              ],
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Get.toNamed(AppRoutes.editProfile);
+            },
+            child: Container(
+              padding: const EdgeInsets.all(10),
+              decoration: ShapeDecoration(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(
+                    width: 1,
+                    color: const Color(0xFFF9FAFB) /* Bg */,
+                  ),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 10,
+                children: [
+                  CommonText(
+                    text: 'Edit Profile',
+                    color: AppColors.white,
+                    fontSize: 10,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

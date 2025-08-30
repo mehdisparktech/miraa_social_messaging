@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:miraa_social_messaging/utils/constants/app_colors.dart';
 import '../../../../../../utils/extensions/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,7 @@ class EditProfile extends StatelessWidget {
           appBar: AppBar(
             centerTitle: true,
             title: const CommonText(
-              text: AppString.profile,
+              text: AppString.editProfile,
               fontSize: 20,
               fontWeight: FontWeight.w600,
             ),
@@ -41,22 +42,21 @@ class EditProfile extends StatelessWidget {
                     children: [
                       Center(
                         child: CircleAvatar(
-                          radius: 85.sp,
+                          radius: 60.sp,
                           backgroundColor: Colors.transparent,
                           child: ClipOval(
-                            child:
-                                controller.image != null
-                                    ? Image.file(
-                                      File(controller.image!),
-                                      width: 170,
-                                      height: 170,
-                                      fit: BoxFit.fill,
-                                    )
-                                    : const CommonImage(
-                                      imageSrc: AppImages.profile,
-                                      height: 170,
-                                      width: 170,
-                                    ),
+                            child: controller.image != null
+                                ? Image.file(
+                                    File(controller.image!),
+                                    width: 120,
+                                    height: 120,
+                                    fit: BoxFit.fill,
+                                  )
+                                : const CommonImage(
+                                    imageSrc: AppImages.profile,
+                                    height: 120,
+                                    width: 120,
+                                  ),
                           ),
                         ),
                       ),
@@ -68,11 +68,11 @@ class EditProfile extends StatelessWidget {
                         child: IconButton(
                           style: ButtonStyle(
                             backgroundColor: WidgetStateColor.resolveWith(
-                              (states) => Colors.black,
+                              (states) => AppColors.yellow,
                             ),
                           ),
                           onPressed: controller.getProfileImage,
-                          icon: const Icon(Icons.edit, color: Colors.white),
+                          icon: Icon(Icons.camera_alt, color: AppColors.black),
                         ),
                       ),
                     ],

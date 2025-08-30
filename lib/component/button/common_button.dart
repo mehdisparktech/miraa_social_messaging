@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miraa_social_messaging/component/image/common_image.dart';
 import 'package:miraa_social_messaging/utils/constants/app_colors.dart';
 
 import '../other_widgets/common_loader.dart';
@@ -18,7 +19,8 @@ class CommonButton extends StatefulWidget {
   final double buttonWidth;
   final bool isLoading;
   final LinearGradient? gradient;
-
+  final bool isIcon;
+  final String? iconImage;
   const CommonButton({
     this.onTap,
     required this.titleText,
@@ -37,6 +39,8 @@ class CommonButton extends StatefulWidget {
       end: Alignment(1.00, 1.35),
       colors: [Color(0xFF027348), Color(0xFF032E1E)],
     ),
+    this.isIcon = false,
+    this.iconImage,
     super.key,
   });
 
@@ -113,15 +117,32 @@ class _CommonButtonState extends State<CommonButton>
   }
 
   Widget _buildText() {
-    return CommonText(
-      text: widget.titleText,
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,
-      textAlign: TextAlign.center,
-      fontSize: widget.titleSize,
-      color: widget.titleColor,
-      fontWeight: widget.titleWeight,
-    );
+    return widget.isIcon
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              CommonImage(imageSrc: widget.iconImage ?? ""),
+              CommonText(
+                text: widget.titleText,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                fontSize: widget.titleSize,
+                color: widget.titleColor,
+                fontWeight: widget.titleWeight,
+              ),
+            ],
+          )
+        : CommonText(
+            text: widget.titleText,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.center,
+            fontSize: widget.titleSize,
+            color: widget.titleColor,
+            fontWeight: widget.titleWeight,
+          );
   }
 
   _onTapDown(TapDownDetails details) {
