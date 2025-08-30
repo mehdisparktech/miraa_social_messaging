@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:miraa_social_messaging/component/image/common_image.dart';
 import 'package:miraa_social_messaging/utils/constants/app_colors.dart';
+import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
 import '../../../../../../../utils/extensions/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -47,10 +49,9 @@ class ForgotPasswordScreen extends StatelessWidget {
                       "Enter the email associated with your account to reset your password",
                   fontSize: 14,
                   bottom: 20,
-                  top: 16,
                   maxLines: 2,
-                  left: 30,
-                  right: 30,
+                  left: 15,
+                  right: 15,
                   color: AppColors.secondaryTextColor,
                   fontWeight: FontWeight.w400,
                 ).center,
@@ -59,7 +60,10 @@ class ForgotPasswordScreen extends StatelessWidget {
                 const CommonText(text: AppString.email, bottom: 8, top: 80),
                 CommonTextField(
                   controller: controller.emailController,
-                  prefixIcon: const Icon(Icons.mail),
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: CommonImage(imageSrc: AppIcons.massage, size: 12),
+                  ),
                   hintText: AppString.email,
                   validator: OtherHelper.emailValidator,
                 ),

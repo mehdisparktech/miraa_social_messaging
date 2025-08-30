@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miraa_social_messaging/utils/constants/app_colors.dart';
+import 'package:miraa_social_messaging/utils/constants/app_images.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../utils/extensions/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -33,19 +34,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   // Onboarding data list - you can modify these
   final List<OnboardingData> _onboardingData = [
     OnboardingData(
-      image: 'assets/images/onboarding_1.png', // Add your image path
+      image: AppImages.onboarding1, // Add your image path
       title: 'Spread Positivity',
       description:
           'Share uplifting thoughts and brighten someone\'s day with those who value kindness.',
     ),
     OnboardingData(
-      image: 'assets/images/onboarding_2.png', // Add your image path
-      title: 'Connect & Share',
+      image: AppImages.onboarding2, // Add your image path
+      title: 'Spread Joy Everywhere',
       description:
           'Build meaningful connections and share your thoughts with like-minded people.',
     ),
     OnboardingData(
-      image: 'assets/images/onboarding_3.png', // Add your image path
+      image: AppImages.onboarding3, // Add your image path
       title: 'Stay Inspired',
       description:
           'Get daily inspiration and motivational content to keep you moving forward.',
@@ -136,13 +137,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   Widget _buildOnboardingPage(OnboardingData data) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: 24.w),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // Image container with rounded corners
           Container(
-            height: 400.h,
+            height: 420.h,
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.r),

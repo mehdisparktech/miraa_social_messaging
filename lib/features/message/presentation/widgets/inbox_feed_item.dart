@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:miraa_social_messaging/component/image/common_image.dart';
+import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../component/image/common_avatar.dart';
 import '../../../../utils/constants/app_colors.dart';
@@ -100,11 +102,7 @@ class InboxFeedItem extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Icon(
-                    Icons.share,
-                    color: isShared ? AppColors.black : AppColors.white,
-                    size: 16.sp,
-                  ),
+                  CommonImage(imageSrc: AppIcons.share, size: 16.sp),
                   SizedBox(width: 8.w),
                   CommonText(
                     text: isShared ? "Shared" : "Share to Feed",

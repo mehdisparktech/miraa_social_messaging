@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:miraa_social_messaging/utils/constants/app_images.dart';
 import '../../../../component/text/common_text.dart';
-import '../../../../component/image/common_avatar.dart';
 import '../../../../utils/constants/app_colors.dart';
 
 class HomeHeader extends StatelessWidget {
@@ -13,11 +13,16 @@ class HomeHeader extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       child: Row(
         children: [
-          CommonAvatar(
-            name: "Mira",
-            radius: 20,
-            backgroundColor: AppColors.yellow,
-            textColor: AppColors.primaryColor,
+          Container(
+            height: 60.r,
+            width: 60.r,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: AppColors.primaryColor, width: 4),
+            ),
+            child: CircleAvatar(
+              backgroundImage: AssetImage(AppImages.onboarding1),
+            ),
           ),
           SizedBox(width: 12.w),
           Expanded(
@@ -32,7 +37,7 @@ class HomeHeader extends StatelessWidget {
                   textAlign: TextAlign.left,
                 ),
                 CommonText(
-                  text: "Spread Positive Positivity ✨",
+                  text: "Send Some Positivity ✨",
                   fontSize: 12,
                   fontWeight: FontWeight.w400,
                   color: AppColors.secondaryTextColor,

@@ -33,7 +33,6 @@ class UserListItem extends StatelessWidget {
             // Avatar
             CommonAvatar(
               name: userName,
-              radius: 24,
               backgroundColor: avatarColor,
               textColor: AppColors.white,
               fontSize: 16,

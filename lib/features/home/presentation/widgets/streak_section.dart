@@ -29,7 +29,7 @@ class StreakSection extends StatelessWidget {
           SizedBox(height: 8.h),
           CommonText(
             text: "Keep going!",
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: FontWeight.w400,
             color: AppColors.secondaryTextColor,
             textAlign: TextAlign.left,

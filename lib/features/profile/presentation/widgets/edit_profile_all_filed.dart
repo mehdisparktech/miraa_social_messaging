@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:miraa_social_messaging/component/image/common_image.dart';
+import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
 import 'package:miraa_social_messaging/utils/extensions/extension.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../component/text_field/common_text_field.dart';
@@ -26,7 +29,10 @@ class EditProfileAllFiled extends StatelessWidget {
           controller: controller.firstNameController,
           validator: OtherHelper.validator,
           hintText: "Enter Your First Name",
-          prefixIcon: const Icon(Icons.person),
+          prefixIcon: Padding(
+            padding: EdgeInsets.all(12.w),
+            child: CommonImage(imageSrc: AppIcons.person, size: 20.sp),
+          ),
           keyboardType: TextInputType.text,
           fillColor: AppColors.transparent,
         ),
@@ -41,7 +47,10 @@ class EditProfileAllFiled extends StatelessWidget {
           controller: controller.lastNameController,
           validator: OtherHelper.validator,
           hintText: "Enter Your Last Name",
-          prefixIcon: const Icon(Icons.person),
+          prefixIcon: Padding(
+            padding: EdgeInsets.all(12.w),
+            child: CommonImage(imageSrc: AppIcons.person, size: 20.sp),
+          ),
           keyboardType: TextInputType.text,
           fillColor: AppColors.transparent,
         ),
@@ -56,7 +65,10 @@ class EditProfileAllFiled extends StatelessWidget {
           controller: controller.usernameController,
           validator: OtherHelper.validator,
           hintText: "Enter Your Username",
-          prefixIcon: const Icon(Icons.person),
+          prefixIcon: Padding(
+            padding: EdgeInsets.all(12.w),
+            child: CommonImage(imageSrc: AppIcons.person, size: 20.sp),
+          ),
           keyboardType: TextInputType.text,
           fillColor: AppColors.transparent,
         ),
@@ -70,7 +82,10 @@ class EditProfileAllFiled extends StatelessWidget {
           controller: controller.emailController,
           validator: OtherHelper.validator,
           hintText: "Enter Your Email",
-          prefixIcon: const Icon(Icons.person),
+          prefixIcon: Padding(
+            padding: EdgeInsets.all(12.w),
+            child: CommonImage(imageSrc: AppIcons.massage, size: 20.sp),
+          ),
           keyboardType: TextInputType.text,
           fillColor: AppColors.transparent,
         ),

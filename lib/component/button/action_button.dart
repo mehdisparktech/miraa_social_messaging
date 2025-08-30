@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:miraa_social_messaging/component/image/common_image.dart';
 import '../../utils/constants/app_colors.dart';
 import '../text/common_text.dart';
 
 class ActionButton extends StatefulWidget {
-  final IconData icon;
+  final String iconImage;
   final int count;
   final VoidCallback onTap;
   final bool isActive;
@@ -15,7 +16,7 @@ class ActionButton extends StatefulWidget {
 
   const ActionButton({
     super.key,
-    required this.icon,
+    required this.iconImage,
     required this.count,
     required this.onTap,
     this.isActive = false,
@@ -69,7 +70,7 @@ class _ActionButtonState extends State<ActionButton>
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(widget.icon, size: widget.iconSize.sp, color: color),
+            CommonImage(imageSrc: widget.iconImage, size: widget.iconSize),
             SizedBox(width: 8.w),
             CommonText(
               text: widget.count.toString().padLeft(2, '0'),

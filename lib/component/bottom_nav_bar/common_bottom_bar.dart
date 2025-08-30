@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:miraa_social_messaging/component/image/common_image.dart';
+import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
 import '../../../config/route/app_routes.dart';
 import '../../../utils/constants/app_colors.dart';
 import '../../../utils/log/app_log.dart';
@@ -17,10 +19,10 @@ class CommonBottomNavBar extends StatefulWidget {
 class _CommonBottomNavBarState extends State<CommonBottomNavBar> {
   var bottomNavIndex = 0;
   List<Widget> bottomBarIcons = [
-    const Icon(Icons.home, color: AppColors.white),
-    const Icon(Icons.message, color: AppColors.white),
-    const Icon(Icons.person, color: AppColors.white),
-    const Icon(Icons.settings, color: AppColors.white),
+    CommonImage(imageSrc: AppIcons.home, size: 20),
+    CommonImage(imageSrc: AppIcons.inbox2, size: 20),
+    CommonImage(imageSrc: AppIcons.profile, size: 20),
+    CommonImage(imageSrc: AppIcons.settings, size: 20),
   ];
 
   @override

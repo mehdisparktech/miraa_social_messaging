@@ -11,4 +11,6 @@ class AppImages {
   static const String onboarding3 = "$baseurl/onborading_3.png";
   static const String profile = "$baseurl/profile.png";
   static const String sent = "$baseurl/sent.png";
+  static const String logOut = "$baseurl/logout.png";
+  static const String or = "$baseurl/or.png";
 }

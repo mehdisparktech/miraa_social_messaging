@@ -20,7 +20,7 @@ class SignUpController extends GetxController {
   bool isPopUpOpen = false;
   bool isLoading = false;
   bool isLoadingVerify = false;
-
+  bool isAgree = false;
   Timer? _timer;
   int start = 0;
 

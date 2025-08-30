@@ -89,7 +89,7 @@ class PositivityFeedsSection extends StatelessWidget {
       children: [
         CommonText(
           text: "Positivity Feeds",
-          fontSize: 18,
+          fontSize: 16,
           fontWeight: FontWeight.w600,
           color: AppColors.textColor,
           textAlign: TextAlign.left,

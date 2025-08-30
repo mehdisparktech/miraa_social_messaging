@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miraa_social_messaging/component/image/common_image.dart';
+import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
 import 'package:miraa_social_messaging/utils/constants/app_images.dart';
 import 'package:miraa_social_messaging/utils/extensions/extension.dart';
 import '../../../../../../../config/route/app_routes.dart';
@@ -45,16 +46,19 @@ class SignInScreen extends StatelessWidget {
                     CommonText(
                       text: AppString.logIntoYourAccount,
                       fontSize: 14,
-                      bottom: 20,
-                      top: 16,
+                      bottom: 32,
                       fontWeight: FontWeight.w400,
+                      color: AppColors.secondaryTextColor,
                     ).center,
 
                     /// Account Email Input here
                     CommonText(text: AppString.username, bottom: 8),
                     CommonTextField(
                       controller: controller.emailController,
-                      prefixIcon: const Icon(Icons.person),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: CommonImage(imageSrc: AppIcons.person, size: 12),
+                      ),
                       hintText: AppString.username,
                       validator: OtherHelper.emailValidator,
                     ),
@@ -67,7 +71,13 @@ class SignInScreen extends StatelessWidget {
                     ),
                     CommonTextField(
                       controller: controller.passwordController,
-                      prefixIcon: const Icon(Icons.lock),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: CommonImage(
+                          imageSrc: AppIcons.password,
+                          size: 12,
+                        ),
+                      ),
                       isPassword: true,
                       hintText: AppString.password,
                       validator: OtherHelper.passwordValidator,
@@ -94,6 +104,25 @@ class SignInScreen extends StatelessWidget {
                       titleText: AppString.signIn,
                       isLoading: controller.isLoading,
                       onTap: controller.signInUser,
+                    ),
+                    SizedBox(height: 24.h),
+                    CommonImage(imageSrc: AppImages.or, height: 24),
+                    SizedBox(height: 24.h),
+                    CommonButton(
+                      isIcon: true,
+                      iconImage: AppIcons.google,
+                      titleText: "Sign in with Google",
+                      isLoading: controller.isLoading,
+                      onTap: controller.signInUser,
+                      buttonColor: AppColors.transparent,
+                      titleColor: AppColors.white,
+                      borderColor: AppColors.borderColor,
+                      gradient: const LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [AppColors.transparent, AppColors.transparent],
+                      ),
+                      borderWidth: 2,
                     ),
                   ],
                 ),

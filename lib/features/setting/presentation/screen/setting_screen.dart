@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:miraa_social_messaging/component/button/common_button.dart';
+import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
+import 'package:miraa_social_messaging/utils/constants/app_images.dart';
 import '../../../../../../config/route/app_routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -36,9 +39,9 @@ class SettingScreen extends StatelessWidget {
                 /// Change password Item here
                 InkWell(
                   onTap: () => Get.toNamed(AppRoutes.changePassword),
-                  child: const SettingItem(
+                  child: SettingItem(
                     title: AppString.changePassword,
-                    iconDate: Icons.lock_outline,
+                    imageSrc: AppIcons.password,
                   ),
                 ),
                 SizedBox(height: 16.h),
@@ -46,9 +49,9 @@ class SettingScreen extends StatelessWidget {
                 /// Terms of Service Item here
                 InkWell(
                   onTap: () => Get.toNamed(AppRoutes.termsOfServices),
-                  child: const SettingItem(
+                  child: SettingItem(
                     title: AppString.termsOfServices,
-                    iconDate: Icons.gavel,
+                    imageSrc: AppIcons.faq,
                   ),
                 ),
                 SizedBox(height: 16.h),
@@ -56,9 +59,9 @@ class SettingScreen extends StatelessWidget {
                 /// Privacy Policy Item here
                 InkWell(
                   onTap: () => Get.toNamed(AppRoutes.privacyPolicy),
-                  child: const SettingItem(
+                  child: SettingItem(
                     title: AppString.privacyPolicy,
-                    iconDate: Icons.network_wifi_1_bar,
+                    imageSrc: AppIcons.privacyPolicy,
                   ),
                 ),
                 SizedBox(height: 16.h),
@@ -66,25 +69,22 @@ class SettingScreen extends StatelessWidget {
                 /// About Item here
                 InkWell(
                   onTap: () => Get.toNamed(AppRoutes.about),
-                  child: const SettingItem(
+                  child: SettingItem(
                     title: "About",
-                    iconDate: Icons.info_outline_rounded,
+                    imageSrc: AppIcons.aboutUs,
                   ),
                 ),
                 SizedBox(height: 16.h),
                 InkWell(
                   onTap: () => Get.toNamed(AppRoutes.faq),
-                  child: const SettingItem(
-                    title: "FAQ",
-                    iconDate: Icons.help_outline_rounded,
-                  ),
+                  child: SettingItem(title: "FAQ", imageSrc: AppIcons.faq),
                 ),
                 SizedBox(height: 16.h),
                 InkWell(
                   onTap: () => Get.toNamed(AppRoutes.helpAndSupport),
-                  child: const SettingItem(
+                  child: SettingItem(
                     title: "Help & Support",
-                    iconDate: Icons.help_outline,
+                    imageSrc: AppIcons.info,
                   ),
                 ),
                 SizedBox(height: 16.h),
@@ -117,6 +117,22 @@ class SettingScreen extends StatelessWidget {
                         ),
                       ],
                     ),
+                  ),
+                ),
+                SizedBox(height: 100.h),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.w),
+                  child: CommonButton(
+                    isIcon: true,
+                    iconImage: AppImages.logOut,
+                    titleText: "Log Out",
+                    buttonHeight: 50.h,
+                    buttonRadius: 10.r,
+                    titleSize: 16.sp,
+                    titleWeight: FontWeight.w600,
+                    titleColor: AppColors.white,
+                    buttonColor: AppColors.primaryColor,
+                    onTap: () => logOutPopUp(),
                   ),
                 ),
               ],

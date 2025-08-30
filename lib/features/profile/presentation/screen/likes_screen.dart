@@ -59,6 +59,8 @@ class LikesScreen extends StatelessWidget {
       body: Column(
         children: [
           _buildLikesHeader(),
+          Divider(color: AppColors.borderColor, height: 1),
+          SizedBox(height: 10.h),
           Expanded(child: _buildUsersList(likedUsers)),
         ],
       ),
@@ -93,7 +95,7 @@ class LikesScreen extends StatelessWidget {
             text: 'People who liked this message',
             fontSize: 14,
             fontWeight: FontWeight.w400,
-            color: AppColors.body,
+            color: AppColors.white,
             textAlign: TextAlign.left,
           ),
         ],

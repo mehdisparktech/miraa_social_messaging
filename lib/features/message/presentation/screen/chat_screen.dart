@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:miraa_social_messaging/component/image/common_image.dart';
 import 'package:miraa_social_messaging/features/message/presentation/widgets/inbox_feed_item.dart';
+import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
 import '../../../../component/bottom_nav_bar/common_bottom_bar.dart';
 import '../../../../component/other_widgets/common_loader.dart';
 import '../../../../component/screen/error_screen.dart';
@@ -20,10 +22,13 @@ class ChatListScreen extends StatelessWidget {
       /// App Bar Section Starts here
       appBar: AppBar(
         centerTitle: false,
-        leading: Icon(Icons.inbox_outlined),
+        leading: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CommonImage(imageSrc: AppIcons.inbox, size: 24.sp),
+        ),
         title: CommonText(
           text: AppString.inbox,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.w600,
           fontSize: 20,
           color: AppColors.textColor,
         ),

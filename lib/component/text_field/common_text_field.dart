@@ -62,7 +62,7 @@ class CommonTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      maxLines: expands ? null : 5,
+      maxLines: expands ? null : 1,
       expands: expands,
       autovalidateMode: AutovalidateMode.onUnfocus,
       keyboardType: keyboardType,

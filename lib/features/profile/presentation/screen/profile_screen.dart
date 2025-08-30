@@ -72,12 +72,12 @@ class ProfileScreen extends StatelessWidget {
         children: [
           CircleAvatar(
             radius: 25.sp,
-            backgroundColor: AppColors.white,
             child: ClipOval(
               child: CommonImage(
-                imageSrc: AppImages.profile,
+                imageSrc: AppImages.onboarding1,
                 height: 50,
                 width: 50,
+                fill: BoxFit.cover,
               ),
             ),
           ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miraa_social_messaging/component/image/common_image.dart';
-import 'package:miraa_social_messaging/utils/constants/app_images.dart';
+import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
 import 'package:miraa_social_messaging/utils/extensions/extension.dart';
 import 'package:miraa_social_messaging/utils/helpers/other_helper.dart';
 import '../../../services/storage/storage_services.dart';
@@ -109,14 +109,29 @@ logOutPopUp() {
             return FadeTransition(
               opacity: ModalRoute.of(context)!.animation!,
               child: AlertDialog(
+                backgroundColor: Color(0xFF032E1E),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.r),
                 ),
                 contentPadding: EdgeInsets.all(12.sp),
-                title: const CommonText(
-                  text: AppString.youSureWantToLogout,
-                  maxLines: 2,
-                  fontWeight: FontWeight.w600,
+                title: Column(
+                  children: [
+                    CommonImage(
+                      imageSrc: AppIcons.error,
+                      height: 100,
+                      width: 100,
+                    ).center,
+                    Center(
+                      child: CommonText(
+                        text: "Are you sure you want to logout?",
+                        fontSize: 20.sp,
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.white,
+                        maxLines: 2,
+                        bottom: 24.h,
+                      ),
+                    ),
+                  ],
                 ),
                 actions: [
                   Row(
@@ -176,7 +191,7 @@ deletePopUp({
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CommonImage(
-                  imageSrc: AppImages.noData,
+                  imageSrc: AppIcons.error,
                   height: 100,
                   width: 100,
                 ).center,

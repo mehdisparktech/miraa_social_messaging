@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:miraa_social_messaging/component/image/common_image.dart';
+import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../component/item/comment_item.dart';
@@ -81,7 +83,7 @@ class _CommentsScreenState extends State<CommentsScreen> {
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
       child: Row(
         children: [
-          Icon(Icons.chat_bubble_outline, color: AppColors.body, size: 20.sp),
+          CommonImage(imageSrc: AppIcons.helpSupport, size: 20.sp),
           SizedBox(width: 12.w),
           CommonText(
             text:
@@ -165,7 +167,10 @@ class _CommentsScreenState extends State<CommentsScreen> {
                 color: AppColors.white,
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.send, color: AppColors.black, size: 20.sp),
+              child: Padding(
+                padding: EdgeInsets.all(8.w),
+                child: CommonImage(imageSrc: AppIcons.send, size: 20.sp),
+              ),
             ),
           ),
         ],

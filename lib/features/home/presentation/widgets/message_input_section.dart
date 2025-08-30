@@ -46,7 +46,7 @@ class MessageInputSection extends StatelessWidget {
                   Expanded(
                     child: CommonButton(
                       isIcon: true,
-                      iconImage: AppImages.noData,
+                      iconImage: AppImages.sent,
                       titleText: "Send",
                       titleSize: 16,
                       buttonHeight: 44.h,

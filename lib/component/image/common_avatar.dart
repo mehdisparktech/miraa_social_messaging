@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:miraa_social_messaging/component/image/common_image.dart';
+import 'package:miraa_social_messaging/utils/constants/app_images.dart';
 import '../../utils/constants/app_colors.dart';
-import '../text/common_text.dart';
 
 class CommonAvatar extends StatelessWidget {
   final String? imageUrl;
@@ -30,24 +31,25 @@ class CommonAvatar extends StatelessWidget {
       backgroundColor: backgroundColor,
       backgroundImage: imageUrl != null ? NetworkImage(imageUrl!) : null,
       child: imageUrl == null
-          ? CommonText(
-              text: _getInitials(),
-              fontSize: fontSize,
-              fontWeight: fontWeight,
-              color: textColor,
+          ? ClipOval(
+              child: CommonImage(
+                imageSrc: AppImages.onboarding1,
+                size: 30.sp,
+                fill: BoxFit.cover,
+              ),
             )
           : null,
     );
   }
 
-  String _getInitials() {
-    if (name == null || name!.isEmpty) return "U";
+  // String _getInitials() {
+  //   if (name == null || name!.isEmpty) return "U";
 
-    final words = name!.trim().split(' ');
-    if (words.length == 1) {
-      return words[0][0].toUpperCase();
-    } else {
-      return (words[0][0] + words[1][0]).toUpperCase();
-    }
-  }
+  //   final words = name!.trim().split(' ');
+  //   if (words.length == 1) {
+  //     return words[0][0].toUpperCase();
+  //   } else {
+  //     return (words[0][0] + words[1][0]).toUpperCase();
+  //   }
+  // }
 }

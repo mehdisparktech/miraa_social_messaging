@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
 import '../../utils/constants/app_colors.dart';
 import '../text/common_text.dart';
 import '../image/common_avatar.dart';
@@ -83,7 +84,7 @@ class CommentItem extends StatelessWidget {
 
                 // Like button
                 ActionButton(
-                  icon: isLiked ? Icons.favorite : Icons.favorite_border,
+                  iconImage: isLiked ? AppIcons.love : AppIcons.love,
                   count: likes,
                   onTap: onLikeTap ?? () {},
                   isActive: isLiked,

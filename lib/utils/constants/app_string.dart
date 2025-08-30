@@ -34,7 +34,8 @@ class AppString {
   static const String resendCodeIn = "Resend code in";
   static const String minute = "minute";
   static const String verify = "Verify";
-  static const String logIntoYourAccount = "Login to Your Account";
+  static const String logIntoYourAccount =
+      "Sign in to continue spreading positivity";
   static const String forgotThePassword = "Forgot the password";
   static const String signIn = "Sign in";
   static const String doNotHaveAccount = "Don’t have an account? ";

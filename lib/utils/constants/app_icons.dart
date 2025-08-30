@@ -18,6 +18,11 @@ class AppIcons {
   static const String profile = "$baseurl/icprofile.svg";
   static const String send = "$baseurl/icsend.svg";
   static const String share = "$baseurl/icshare.svg";
+  static const String share2 = "$baseurl/icshare2.svg";
   static const String success = "$baseurl/icsuceess.svg";
   static const String verify = "$baseurl/verify.svg";
+  static const String settings = "$baseurl/icsettings.svg";
+  static const String home = "$baseurl/ichome.svg";
+  static const String inbox2 = "$baseurl/icinbox2.svg";
+  static const String profile2 = "$baseurl/icprofile2.svg";
 }

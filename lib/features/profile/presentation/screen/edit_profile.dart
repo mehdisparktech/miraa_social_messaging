@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:miraa_social_messaging/utils/constants/app_colors.dart';
+import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
 import '../../../../../../utils/extensions/extension.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -53,9 +54,10 @@ class EditProfile extends StatelessWidget {
                                     fit: BoxFit.fill,
                                   )
                                 : const CommonImage(
-                                    imageSrc: AppImages.profile,
+                                    imageSrc: AppImages.onboarding1,
                                     height: 120,
                                     width: 120,
+                                    fill: BoxFit.cover,
                                   ),
                           ),
                         ),
@@ -72,7 +74,10 @@ class EditProfile extends StatelessWidget {
                             ),
                           ),
                           onPressed: controller.getProfileImage,
-                          icon: Icon(Icons.camera_alt, color: AppColors.black),
+                          icon: CommonImage(
+                            imageSrc: AppIcons.camera,
+                            size: 20.sp,
+                          ),
                         ),
                       ),
                     ],

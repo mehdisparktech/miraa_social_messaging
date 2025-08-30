@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:miraa_social_messaging/component/image/common_image.dart';
 import '../../../../../utils/constants/app_colors.dart';
 import '../../../../component/text/common_text.dart';
 
 class SettingItem extends StatelessWidget {
-  const SettingItem({super.key, required this.title, required this.iconDate});
+  const SettingItem({super.key, required this.title, required this.imageSrc});
 
   final String title;
-  final IconData iconDate;
+  final String imageSrc;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class SettingItem extends StatelessWidget {
       child: Row(
         children: [
           /// show icon here
-          Icon(iconDate, color: AppColors.secondaryTextColor),
+          CommonImage(imageSrc: imageSrc, size: 20.sp),
 
           /// show Title here
           CommonText(

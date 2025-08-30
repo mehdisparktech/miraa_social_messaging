@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:miraa_social_messaging/component/image/common_image.dart';
 import 'package:miraa_social_messaging/utils/constants/app_colors.dart';
 
@@ -29,7 +30,7 @@ class CommonButton extends StatefulWidget {
     this.titleSize = 18,
     this.buttonRadius = 12,
     this.titleWeight = FontWeight.w600,
-    this.buttonHeight = 48,
+    this.buttonHeight = 50,
     this.borderWidth = 1,
     this.isLoading = false,
     this.buttonWidth = double.infinity,
@@ -122,7 +123,8 @@ class _CommonButtonState extends State<CommonButton>
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              CommonImage(imageSrc: widget.iconImage ?? ""),
+              CommonImage(imageSrc: widget.iconImage ?? "", size: 20),
+              SizedBox(width: 10.w),
               CommonText(
                 text: widget.titleText,
                 maxLines: 1,

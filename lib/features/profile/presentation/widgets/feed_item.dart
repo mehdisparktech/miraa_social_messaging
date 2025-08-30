@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:miraa_social_messaging/component/image/common_image.dart';
+import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
 import 'package:miraa_social_messaging/utils/extensions/extension.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../component/image/common_avatar.dart';
@@ -101,11 +103,8 @@ class _FeedItemState extends State<FeedItem> {
                 16.width,
 
                 // Arrow
-                Icon(
-                  Icons.arrow_forward,
-                  color: AppColors.primaryColor,
-                  size: 24.sp,
-                ),
+                CommonImage(imageSrc: AppIcons.next, size: 24.sp),
+
                 16.width,
 
                 // Receiver (Shawn)
@@ -178,7 +177,7 @@ class _FeedItemState extends State<FeedItem> {
                         );
                       },
                       child: ActionButton(
-                        icon: _isLiked ? Icons.favorite : Icons.favorite_border,
+                        iconImage: _isLiked ? AppIcons.love : AppIcons.love,
                         count: _likes,
                         onTap: _toggleLike,
                         isActive: _isLiked,
@@ -187,13 +186,13 @@ class _FeedItemState extends State<FeedItem> {
                     ),
                     SizedBox(width: 16.w),
                     ActionButton(
-                      icon: Icons.chat_bubble_outline,
+                      iconImage: AppIcons.helpSupport,
                       count: _comments,
                       onTap: _navigateToComments,
                     ),
                     SizedBox(width: 16.w),
                     ActionButton(
-                      icon: Icons.share_outlined,
+                      iconImage: AppIcons.share2,
                       count: _shares,
                       onTap: _sharePost,
                     ),
