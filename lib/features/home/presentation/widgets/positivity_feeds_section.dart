@@ -120,6 +120,7 @@ class PositivityFeedsSection extends StatelessWidget {
                 shares: feed['shares'],
                 senderAvatarColor: feed['senderAvatarColor'],
                 receiverAvatarColor: feed['receiverAvatarColor'],
+                postId: 'post_$index',
               );
             },
           ),

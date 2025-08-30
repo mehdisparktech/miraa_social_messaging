@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import '../../../../../../config/route/app_routes.dart';
+import 'package:miraa_social_messaging/features/message/presentation/widgets/inbox_feed_item.dart';
 import '../../../../component/bottom_nav_bar/common_bottom_bar.dart';
 import '../../../../component/other_widgets/common_loader.dart';
 import '../../../../component/screen/error_screen.dart';
 import '../../../../component/text/common_text.dart';
-import '../../../../component/text_field/common_text_field.dart';
 import '../controller/chat_controller.dart';
-import '../../data/model/chat_list_model.dart';
 import '../../../../../../utils/enum/enum.dart';
 import '../../../../../../utils/constants/app_string.dart';
-import '../widgets/chat_list_item.dart';
+import '../../../../../../utils/constants/app_colors.dart';
 
 class ChatListScreen extends StatelessWidget {
   const ChatListScreen({super.key});
@@ -21,11 +19,13 @@ class ChatListScreen extends StatelessWidget {
     return Scaffold(
       /// App Bar Section Starts here
       appBar: AppBar(
-        centerTitle: true,
-        title: const CommonText(
+        centerTitle: false,
+        leading: Icon(Icons.inbox_outlined),
+        title: CommonText(
           text: AppString.inbox,
-          fontWeight: FontWeight.w600,
-          fontSize: 24,
+          fontWeight: FontWeight.w400,
+          fontSize: 20,
+          color: AppColors.textColor,
         ),
       ),
 
@@ -45,32 +45,23 @@ class ChatListScreen extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
             child: Column(
               children: [
-                /// User Search bar here
-                CommonTextField(
-                  prefixIcon: const Icon(Icons.search),
-                  hintText: AppString.searchDoctor,
-                ),
-
                 /// Show all Chat List here
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: controller.chats.length,
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) =>
+                        SizedBox(height: 16.h),
+                    itemCount: 4,
                     padding: EdgeInsets.only(top: 16.h),
                     itemBuilder: (context, index) {
-                      ChatModel item = controller.chats[index];
                       return GestureDetector(
-                        /// routing with data
-                        onTap: () => Get.toNamed(
-                          AppRoutes.message,
-                          parameters: {
-                            "chatId": item.id,
-                            "name": item.participant.fullName,
-                            "image": item.participant.image,
-                          },
-                        ),
-
                         /// Chat List item here
-                        child: chatListItem(item: controller.chats[index]),
+                        child: InboxFeedItem(
+                          senderName: "Angel",
+                          message: "Hello, how are you?",
+                          timeAgo: "10:00 AM",
+                          senderAvatarColor: AppColors.primaryColor,
+                          isShared: index == 0,
+                        ),
                       );
                     },
                   ),
