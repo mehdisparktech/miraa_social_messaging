@@ -38,7 +38,6 @@ class PrivacyPolicyScreen extends StatelessWidget {
           Status.completed => SingleChildScrollView(
             padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 20),
             child: CommonText(text: controller.data),
-
             // Html(data: controller.data.content),
           ),
         },

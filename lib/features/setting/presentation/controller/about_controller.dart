@@ -4,7 +4,7 @@ import '../../../../config/api/api_end_point.dart';
 import '../../../../utils/app_utils.dart';
 import '../../../../utils/enum/enum.dart';
 
-class TermsOfServicesController extends GetxController {
+class AboutController extends GetxController {
   /// Api status check here
   Status status = Status.completed;
   String data = 'No Content';
@@ -13,19 +13,20 @@ class TermsOfServicesController extends GetxController {
   // HtmlModel data = HtmlModel.fromJson({});
 
   /// Privacy Policy Controller instance create here
-  static TermsOfServicesController get instance => Get.put(TermsOfServicesController());
+  static AboutController get instance => Get.put(AboutController());
 
   /// Privacy Policy Api call here
-  geTermsOfServicesRepo() async {
+  geAboutRepo() async {
     // return;
     status = Status.loading;
     update();
 
-    var response = await ApiService.get(ApiEndPoint.termsOfServices);
+    var response = await ApiService.get(ApiEndPoint.about);
 
     if (response.statusCode == 200) {
       // data = HtmlModel.fromJson(response.data["data"]);
       data = response.data["data"]["content"];
+
       status = Status.completed;
       update();
     } else {
@@ -38,7 +39,7 @@ class TermsOfServicesController extends GetxController {
   /// Controller on Init here
   @override
   void onInit() {
-    geTermsOfServicesRepo();
+    geAboutRepo();
     super.onInit();
   }
 }

@@ -13,7 +13,9 @@ class ApiEndPoint {
   static const user = "users";
   static const notifications = "notifications";
   static const privacyPolicies = "/public/privacy-policy";
-  static const termsOfServices = "terms-and-conditions";
+  static const faq = "/public/faq/all";
+  static const termsOfServices = "/public/terms-and-condition";
+  static const about = "/public/about";
   static const chats = "chats";
   static const messages = "messages";
 }

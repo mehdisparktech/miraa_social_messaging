@@ -6,7 +6,8 @@ import '../../utils/log/app_log.dart';
 import 'storage_keys.dart';
 
 class LocalStorage {
-  static String token = "";
+  static String token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdXRoSWQiOiI2OGQyNjk4MjBiMWRiMWYzY2RkYjI0NjkiLCJyb2xlIjoidXNlciIsIm5hbWUiOiJVc2VyOTk4IFRlc3QyMTIiLCJlbWFpbCI6InVzZXJfNTY0NEBleGFtcGxlLmNvbSIsImlhdCI6MTc1ODYyMDEzMCwiZXhwIjoxNzU5NDg0MTMwfQ.noOFDUR3FLgoe2pnrcTVU8KkzBjXnJghGBOby8uu7F4";
   static String refreshToken = "";
   static bool isLogIn = false;
   static String userId = "";
