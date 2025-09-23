@@ -17,20 +17,17 @@ class ChangePasswordController extends GetxController {
 
   Future<void> changePasswordRepo() async {
     if (!formKey.currentState!.validate()) return;
-    Get.back();
-    return;
+    // Get.back();
+    // return;
     isLoading = true;
     update();
 
     Map<String, String> body = {
-      "oldPassword": currentPasswordController.text,
+      "currentPassword": currentPasswordController.text,
       "newPassword": newPasswordController.text,
+      "confirmPassword": confirmPasswordController.text,
     };
-    var response = await ApiService.patch(
-      ApiEndPoint.changePassword,
-      body: body,
-    );
-
+    var response = await ApiService.post(ApiEndPoint.changePassword, body: body);
     if (response.statusCode == 200) {
       Utils.successSnackBar(response.statusCode.toString(), response.message);
 

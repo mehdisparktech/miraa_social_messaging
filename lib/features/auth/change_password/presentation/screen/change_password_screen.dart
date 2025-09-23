@@ -11,7 +11,6 @@ import '../../../../../../../utils/constants/app_colors.dart';
 import '../../../../../../../utils/constants/app_string.dart';
 import '../../../../../utils/helpers/other_helper.dart';
 
-
 class ChangePasswordScreen extends StatelessWidget {
   const ChangePasswordScreen({super.key});
 
@@ -48,11 +47,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   ),
 
                   /// New Password section
-                  const CommonText(
-                    text: AppString.newPassword,
-                    bottom: 8,
-                    top: 16,
-                  ),
+                  const CommonText(text: AppString.newPassword, bottom: 8, top: 16),
                   CommonTextField(
                     controller: controller.newPasswordController,
                     hintText: AppString.newPassword,
@@ -62,24 +57,20 @@ class ChangePasswordScreen extends StatelessWidget {
                   ),
 
                   /// confirm Password section
-                  const CommonText(
-                    text: AppString.confirmPassword,
-                    bottom: 8,
-                    top: 16,
-                  ),
+                  const CommonText(text: AppString.confirmPassword, bottom: 8, top: 16),
                   CommonTextField(
                     controller: controller.confirmPasswordController,
                     hintText: AppString.confirmPassword,
-                    validator:
-                        (value) => OtherHelper.confirmPasswordValidator(
-                          value,
-                          controller.newPasswordController,
-                        ),
+                    validator: (value) => OtherHelper.confirmPasswordValidator(
+                      value,
+                      controller.newPasswordController,
+                    ),
                     isPassword: true,
                     prefixIcon: Icon(Icons.lock, size: 20.sp),
                   ),
 
                   /// forget Password button
+                  // TODO: Need to integrate this
                   Align(
                     alignment: Alignment.centerLeft,
                     child: GestureDetector(
