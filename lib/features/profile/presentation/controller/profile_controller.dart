@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:miraa_social_messaging/services/storage/storage_services.dart';
+import 'package:miraa_social_messaging/utils/enum/enum.dart';
 import 'package:miraa_social_messaging/utils/helpers/other_helper.dart';
 
 import '../../../../config/api/api_end_point.dart';
@@ -24,6 +25,11 @@ class ProfileController extends GetxController {
   /// edit button loading here
   bool isLoading = false;
 
+  Status status = Status.completed;
+
+  /// Privacy Policy Controller instance create here
+  static ProfileController get instance => Get.put(ProfileController());
+
   /// all controller here
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
@@ -42,6 +48,28 @@ class ProfileController extends GetxController {
     selectedLanguage = languages[index];
     update();
     Get.back();
+  }
+
+  /// Get profile function here
+  Future<void> getProfileRepo() async {
+    status = Status.loading;
+    update();
+
+    var response = await ApiService.get(ApiEndPoint.getuserProfile);
+
+    if (response.statusCode == 200) {
+      var data = response.data["data"];
+      firstNameController.text = data["firstName"]?.toString() ?? "";
+      lastNameController.text = data["lastName"]?.toString() ?? "";
+      usernameController.text = data["userName"]?.toString() ?? "";
+      emailController.text = data["email"]?.toString() ?? "";
+      status = Status.completed;
+      update();
+    } else {
+      Utils.errorSnackBar(response.statusCode, response.message);
+      status = Status.error;
+      update();
+    }
   }
 
   /// update profile function here
@@ -87,5 +115,11 @@ class ProfileController extends GetxController {
 
     isLoading = false;
     update();
+  }
+
+  @override
+  void onInit() {
+    getProfileRepo();
+    super.onInit();
   }
 }
