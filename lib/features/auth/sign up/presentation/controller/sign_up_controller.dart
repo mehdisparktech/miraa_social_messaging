@@ -26,9 +26,16 @@ class SignUpController extends GetxController {
 
   String time = "";
 
-  List selectedOption = ["User", "Consultant"];
+  List selectedOption = [
+    "Lifelong Learner / Student",
+    "Working Professional",
+    "Parent / Caregiver",
+    "Partnered / Navigating Relationships",
+    "Independent / Navigating Life",
+    "In Transition / Redefining Myself",
+  ];
 
-  String selectRole = "User";
+  String selectRole = "Lifelong Learner / Student";
   String countryCode = "+880";
   String? image;
 
@@ -83,30 +90,47 @@ class SignUpController extends GetxController {
 
   signUpUser() async {
     if (!signUpFormKey.currentState!.validate()) return;
-    Get.toNamed(AppRoutes.verifyUser);
-    return;
     isLoading = true;
     update();
+
+    // Updated body with all required fields as per user specification
     Map<String, String> body = {
-      "fullName": nameController.text,
-      "email": emailController.text,
-      "phoneNumber": numberController.text,
-      "countryCode": countryCode,
+      "email": emailController.text.trim(),
+      "userName": usernameController.text.trim(),
       "password": passwordController.text,
-      "role": selectRole.toLowerCase(),
+      "category":
+          selectRole, // Using selectRole as category (exact match with backend)
+      "firstName": nameController.text.trim(),
+      "lastName": lastNameController.text.trim(),
+      "role": "user", // Backend only accepts "user" as role
+      // Additional fields that might be needed by the existing API
+      "phoneNumber": numberController.text.trim(),
+      "countryCode": countryCode,
     };
 
-    var response = await ApiService.post(ApiEndPoint.signUp, body: body);
+    try {
+      var response = await ApiService.post(ApiEndPoint.signUp, body: body);
 
-    if (response.statusCode == 200) {
-      var data = response.data;
-      signUpToken = data['data']['signUpToken'];
-      Get.toNamed(AppRoutes.verifyUser);
-    } else {
-      Utils.errorSnackBar(response.statusCode.toString(), response.message);
+      if (response.statusCode == 200) {
+        //var data = response.data;
+        //signUpToken = data['data']['signUpToken'];
+
+        // Success message
+        Utils.successSnackBar("Success", "Account created successfully!");
+        Get.toNamed(AppRoutes.verifyUser);
+      } else {
+        Utils.errorSnackBar(response.statusCode.toString(), response.message);
+      }
+    } catch (e) {
+      // Handle network or other errors
+      Utils.errorSnackBar("Error", "Something went wrong. Please try again.");
+      if (kDebugMode) {
+        print("SignUp Error: $e");
+      }
+    } finally {
+      isLoading = false;
+      update();
     }
-    isLoading = false;
-    update();
   }
 
   void startTimer() {
@@ -128,43 +152,38 @@ class SignUpController extends GetxController {
   }
 
   Future<void> verifyOtpRepo() async {
-    Get.offAllNamed(AppRoutes.signIn);
-    return;
-
     isLoadingVerify = true;
     update();
-    Map<String, String> body = {"otp": otpController.text};
-    Map<String, String> header = {"SignUpToken": "signUpToken $signUpToken"};
-    var response = await ApiService.post(
-      ApiEndPoint.verifyEmail,
-      body: body,
-      header: header,
-    );
+
+    // Using the email and oneTimeCode as specified in the request
+    Map<String, String> body = {
+      "email": emailController.text.trim(),
+      "oneTimeCode": otpController.text,
+    };
+
+    var response = await ApiService.post(ApiEndPoint.verifyEmail, body: body);
 
     if (response.statusCode == 200) {
       var data = response.data;
 
       LocalStorage.token = data['data']["accessToken"];
-      LocalStorage.userId = data['data']["attributes"]["_id"];
-      LocalStorage.myImage = data['data']["attributes"]["image"];
-      LocalStorage.myName = data['data']["attributes"]["fullName"];
-      LocalStorage.myEmail = data['data']["attributes"]["email"];
+      // LocalStorage.userId = data['data']["attributes"]["_id"];
+      // LocalStorage.myImage = data['data']["attributes"]["image"];
+      // LocalStorage.myName = data['data']["attributes"]["fullName"];
+      // LocalStorage.myEmail = data['data']["attributes"]["email"];
       LocalStorage.isLogIn = true;
 
-      LocalStorage.setBool(LocalStorageKeys.isLogIn, LocalStorage.isLogIn);
+      //LocalStorage.setBool(LocalStorageKeys.isLogIn, LocalStorage.isLogIn);
       LocalStorage.setString(LocalStorageKeys.token, LocalStorage.token);
-      LocalStorage.setString(LocalStorageKeys.userId, LocalStorage.userId);
-      LocalStorage.setString(LocalStorageKeys.myImage, LocalStorage.myImage);
-      LocalStorage.setString(LocalStorageKeys.myName, LocalStorage.myName);
-      LocalStorage.setString(LocalStorageKeys.myEmail, LocalStorage.myEmail);
+      // LocalStorage.setString(LocalStorageKeys.userId, LocalStorage.userId);
+      // LocalStorage.setString(LocalStorageKeys.myImage, LocalStorage.myImage);
+      // LocalStorage.setString(LocalStorageKeys.myName, LocalStorage.myName);
+      // LocalStorage.setString(LocalStorageKeys.myEmail, LocalStorage.myEmail);
 
-      // if (LocalStorage.myRole == 'consultant') {
-      //   Get.toNamed(AppRoutes.personalInformation);
-      // } else {
-      //   Get.offAllNamed(AppRoutes.patientsHome);
-      // }
+      Utils.successSnackBar("Success", "Account verified successfully!");
+      Get.offAllNamed(AppRoutes.signIn);
     } else {
-      Get.snackbar(response.statusCode.toString(), response.message);
+      Utils.errorSnackBar(response.statusCode.toString(), response.message);
     }
 
     isLoadingVerify = false;

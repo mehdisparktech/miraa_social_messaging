@@ -60,7 +60,7 @@ class SignInScreen extends StatelessWidget {
                         child: CommonImage(imageSrc: AppIcons.person, size: 12),
                       ),
                       hintText: AppString.username,
-                      validator: OtherHelper.emailValidator,
+                      //validator: OtherHelper.textFieldValidator,
                     ),
 
                     /// Account Password Input here

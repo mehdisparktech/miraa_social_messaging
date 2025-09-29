@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:miraa_social_messaging/utils/constants/app_string.dart';
 
 import '../../../../../config/route/app_routes.dart';
 import '../../../../../services/api/api_service.dart';
@@ -78,8 +79,6 @@ class ForgetPasswordController extends GetxController {
   /// Forget Password Api Call
 
   Future<void> forgotPasswordRepo() async {
-    Get.toNamed(AppRoutes.verifyEmail);
-    return;
     isLoadingEmail = true;
     update();
 
@@ -90,7 +89,7 @@ class ForgetPasswordController extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      Utils.successSnackBar(response.statusCode.toString(), response.message);
+      Utils.successSnackBar("Success Massage", response.message);
       Get.toNamed(AppRoutes.verifyEmail);
     } else {
       Get.snackbar(response.statusCode.toString(), response.message);
@@ -102,19 +101,18 @@ class ForgetPasswordController extends GetxController {
   /// Verify OTP Api Call
 
   Future<void> verifyOtpRepo() async {
-    Get.toNamed(AppRoutes.createPassword);
-    return;
     isLoadingVerify = true;
     update();
     Map<String, String> body = {
-      "email": emailController.text,
-      "otp": otpController.text,
+      "email": emailController.text.trim(),
+      "oneTimeCode": otpController.text,
     };
-    var response = await ApiService.post(ApiEndPoint.verifyOtp, body: body);
+
+    var response = await ApiService.post(ApiEndPoint.verifyEmail, body: body);
 
     if (response.statusCode == 200) {
       var data = response.data;
-      forgetPasswordToken = data['data']['forgetPasswordToken'];
+      forgetPasswordToken = data['data']['token'];
       Get.toNamed(AppRoutes.createPassword);
     } else {
       Get.snackbar(response.statusCode.toString(), response.message);
@@ -127,17 +125,13 @@ class ForgetPasswordController extends GetxController {
   /// Create New Password Api Call
 
   Future<void> resetPasswordRepo() async {
-    Get.offAllNamed(AppRoutes.signIn);
-    return;
     isLoadingReset = true;
     update();
-    Map<String, String> header = {
-      "Forget-password": "Forget-password $forgetPasswordToken",
-    };
+    Map<String, String> header = {"Authorization": "$forgetPasswordToken"};
 
     Map<String, String> body = {
-      "email": emailController.text,
-      "password": passwordController.text,
+      "newPassword": passwordController.text,
+      "confirmPassword": confirmPasswordController.text,
     };
     var response = await ApiService.post(
       ApiEndPoint.resetPassword,
@@ -146,7 +140,7 @@ class ForgetPasswordController extends GetxController {
     );
 
     if (response.statusCode == 200) {
-      Utils.successSnackBar(response.message, response.message);
+      Utils.successSnackBar("Success Massage", response.message);
       Get.offAllNamed(AppRoutes.signIn);
 
       emailController.clear();

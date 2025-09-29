@@ -49,6 +49,62 @@ class SignUpAllField extends StatelessWidget {
           validator: OtherHelper.validator,
         ),
 
+        /// Category Selection here
+        const CommonText(text: "Category", bottom: 8, top: 16),
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(color: Colors.grey.shade300),
+          ),
+          child: DropdownButtonFormField<String>(
+            value: controller.selectRole,
+            isExpanded: true, // This ensures the dropdown takes full width
+            decoration: InputDecoration(
+              prefixIcon: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: CommonImage(imageSrc: AppIcons.person, size: 16),
+                ),
+              ),
+              border: InputBorder.none,
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 12,
+              ),
+              focusColor: Colors.white,
+              hoverColor: Colors.white,
+              hintText: "Select Category",
+              hintStyle: TextStyle(color: Colors.grey),
+            ),
+            items: controller.selectedOption.map<DropdownMenuItem<String>>((
+              value,
+            ) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(
+                  value,
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 1,
+                  style: TextStyle(fontSize: 14),
+                ),
+              );
+            }).toList(),
+            onChanged: (String? newValue) {
+              if (newValue != null) {
+                controller.setSelectedRole(newValue);
+              }
+            },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please select a category';
+              }
+              return null;
+            },
+          ),
+        ),
+
         /// User Email here
         const CommonText(text: AppString.email, bottom: 8, top: 16),
         CommonTextField(

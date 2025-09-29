@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import '../../../../../config/route/app_routes.dart';
 import '../../../../../services/api/api_service.dart';
 import '../../../../../config/api/api_end_point.dart';
 import '../../../../../services/storage/storage_keys.dart';
@@ -26,8 +25,8 @@ class SignInController extends GetxController {
 
   Future<void> signInUser() async {
     if (!formKey.currentState!.validate()) return;
-    Get.toNamed(AppRoutes.home);
-    return;
+    // Get.toNamed(AppRoutes.home);
+    // return;
 
     isLoading = true;
     update();
