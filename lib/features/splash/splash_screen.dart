@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miraa_social_messaging/services/storage/storage_services.dart';
 import 'package:miraa_social_messaging/utils/extensions/extension.dart';
 import '../../../../config/route/app_routes.dart';
 import 'package:get/get.dart';
@@ -23,7 +24,11 @@ class _SplashScreenState extends State<SplashScreen> {
       //     Get.offAllNamed(AppRoutes.patientsHome);
       //   }
       // } else {
-      Get.offAllNamed(AppRoutes.onboarding);
+      if (LocalStorage.isLogIn) {
+        Get.toNamed(AppRoutes.home);
+      } else {
+        Get.toNamed(AppRoutes.onboarding);
+      }
     });
     super.initState();
   }

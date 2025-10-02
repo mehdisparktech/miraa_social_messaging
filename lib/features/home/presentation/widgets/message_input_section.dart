@@ -52,6 +52,7 @@ class MessageInputSection extends StatelessWidget {
                       buttonHeight: 44.h,
                       buttonRadius: 8,
                       onTap: controller.sendMessage,
+                      isLoading: controller.isLoadingSend.value,
                     ),
                   ),
                 ],

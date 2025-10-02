@@ -6,6 +6,7 @@ import 'package:miraa_social_messaging/config/api/api_end_point.dart';
 import 'package:miraa_social_messaging/features/home/data/model/feed_model.dart';
 import 'package:miraa_social_messaging/services/api/api_service.dart';
 import 'package:miraa_social_messaging/utils/constants/app_colors.dart';
+import 'package:miraa_social_messaging/utils/app_utils.dart';
 
 class HomeController extends GetxController {
   final TextEditingController messageController = TextEditingController();
@@ -16,6 +17,7 @@ class HomeController extends GetxController {
   // Feed data
   RxList<FeedItemModel> feedItems = <FeedItemModel>[].obs;
   RxBool isLoadingFeed = false.obs;
+  RxBool isLoadingSend = false.obs;
   RxString feedError = ''.obs;
 
   @override
@@ -35,11 +37,48 @@ class HomeController extends GetxController {
     fetchFeedData();
   }
 
-  void sendMessage() {
+  void sendMessage() async {
     if (messageController.text.trim().isNotEmpty) {
-      // Handle sending message logic here
-      messageController.clear();
-      // You can add API call or local storage logic
+      try {
+        String messageText = messageController.text.trim();
+
+        // Create request body
+        Map<String, String> body = {"message": messageText};
+
+        // Show loading state
+        isLoadingSend(true);
+        update();
+
+        // Make API call
+        var response = await ApiService.post(
+          ApiEndPoint.sendMessage,
+          body: body,
+        );
+
+        if (response.statusCode == 200) {
+          // Success - clear the message field
+          messageController.clear();
+
+          // Show success message
+          Fluttertoast.showToast(
+            msg: "Message sent successfully!",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: AppColors.primaryColor,
+            textColor: AppColors.white,
+          );
+        } else {
+          // Error handling
+          Utils.errorSnackBar(response.statusCode, response.message);
+        }
+      } catch (e) {
+        // Network or other errors
+        Utils.errorSnackBar(500, "Failed to send message. Please try again.");
+      } finally {
+        // Hide loading state
+        isLoadingSend(false);
+        update();
+      }
     }
   }
 
@@ -63,7 +102,9 @@ class HomeController extends GetxController {
       final response = await ApiService.get(ApiEndPoint.messageFeed);
 
       if (response.statusCode == 200) {
-        final feedResponse = FeedResponseModel.fromJson(Map<String, dynamic>.from(response.data));
+        final feedResponse = FeedResponseModel.fromJson(
+          Map<String, dynamic>.from(response.data),
+        );
         feedItems.value = feedResponse.data.data;
       } else {
         feedError.value = 'Failed to load feed data';

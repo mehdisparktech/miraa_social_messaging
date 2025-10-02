@@ -19,4 +19,6 @@ class ApiEndPoint {
   static const messages = "messages";
   static const getuserProfile = '/user/profile';
   static const messageFeed = 'message/feed';
+  static const sendMessage = 'message';
+  static const comments = 'comment';
 }
