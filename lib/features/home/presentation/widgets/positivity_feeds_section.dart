@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+import 'package:miraa_social_messaging/features/home/presentation/controller/home_controller.dart';
+import 'package:miraa_social_messaging/utils/extensions/extension.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../utils/constants/app_colors.dart';
 import 'feed_item.dart';
@@ -9,80 +12,7 @@ class PositivityFeedsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> feedData = [
-      {
-        'senderName': 'Angel',
-        'receiverName': 'Shawn',
-        'message':
-            'Remember, every small step forward is still progress. You\'re doing better than you think! ✨',
-        'timeAgo': '2 min ago',
-        'likes': 19,
-        'comments': 12,
-        'shares': 4,
-        'senderAvatarColor': Colors.purple,
-        'receiverAvatarColor': AppColors.yellow,
-      },
-      {
-        'senderName': 'Max',
-        'receiverName': 'Arthur',
-        'message':
-            'Remember, every small step forward is still progress. You\'re doing better than you think! ✨',
-        'timeAgo': '5 min ago',
-        'likes': 8,
-        'comments': 6,
-        'shares': 2,
-        'senderAvatarColor': AppColors.red,
-        'receiverAvatarColor': Colors.blue,
-      },
-      {
-        'senderName': 'Mitchell',
-        'receiverName': 'Eduardo',
-        'message':
-            'Remember, every small step forward is still progress. You\'re doing better than you think! ✨',
-        'timeAgo': '8 min ago',
-        'likes': 22,
-        'comments': 18,
-        'shares': 6,
-        'senderAvatarColor': Colors.purple,
-        'receiverAvatarColor': Colors.green,
-      },
-      {
-        'senderName': 'Marjorie',
-        'receiverName': 'Kyle',
-        'message':
-            'Remember, every small step forward is still progress. You\'re doing better than you think! ✨',
-        'timeAgo': '12 min ago',
-        'likes': 15,
-        'comments': 9,
-        'shares': 3,
-        'senderAvatarColor': Colors.blue,
-        'receiverAvatarColor': Colors.orange,
-      },
-      {
-        'senderName': 'Colleen',
-        'receiverName': 'Shane',
-        'message':
-            'Remember, every small step forward is still progress. You\'re doing better than you think! ✨',
-        'timeAgo': '15 min ago',
-        'likes': 31,
-        'comments': 25,
-        'shares': 8,
-        'senderAvatarColor': Colors.green,
-        'receiverAvatarColor': Colors.red,
-      },
-      {
-        'senderName': 'Esther',
-        'receiverName': 'Courtney',
-        'message':
-            'Remember, every small step forward is still progress. You\'re doing better than you think! ✨',
-        'timeAgo': '18 min ago',
-        'likes': 19,
-        'comments': 14,
-        'shares': 5,
-        'senderAvatarColor': Colors.orange,
-        'receiverAvatarColor': Colors.purple,
-      },
-    ];
+    final HomeController controller = Get.find<HomeController>();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,30 +32,89 @@ class PositivityFeedsSection extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.r),
             border: Border.all(color: AppColors.borderColor2),
           ),
-          child: ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: feedData.length,
-            separatorBuilder: (context, index) =>
-                Divider(color: AppColors.borderColor2, height: 1),
-            itemBuilder: (context, index) {
-              final feed = feedData[index];
-              return FeedItem(
-                senderName: feed['senderName'],
-                receiverName: feed['receiverName'],
-                message: feed['message'],
-                timeAgo: feed['timeAgo'],
-                likes: feed['likes'],
-                comments: feed['comments'],
-                shares: feed['shares'],
-                senderAvatarColor: feed['senderAvatarColor'],
-                receiverAvatarColor: feed['receiverAvatarColor'],
-                postId: 'post_$index',
+          child: Obx(() {
+            if (controller.isLoadingFeed.value) {
+              return const Center(
+                child: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: CircularProgressIndicator(),
+                ),
               );
-            },
-          ),
+            }
+
+            if (controller.feedError.isNotEmpty) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: CommonText(
+                    text: 'Failed to load feed data',
+                    fontSize: 14,
+                    color: AppColors.red,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            }
+
+            if (controller.feedItems.isEmpty) {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: CommonText(
+                    text: 'No feed data available',
+                    fontSize: 14,
+                    color: AppColors.grey,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            }
+
+            return ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: controller.feedItems.length,
+              separatorBuilder: (context, index) =>
+                  Divider(color: AppColors.borderColor2, height: 1),
+              itemBuilder: (context, index) {
+                final feed = controller.feedItems[index];
+                return FeedItem(
+                  senderName: feed.sender.fullName,
+                  receiverName: feed.receiver.fullName,
+                  message: feed.message,
+                  timeAgo: feed.createdAt.checkTime,
+                  likes: feed.reactionCount,
+                  comments: feed.commentCount,
+                  shares: feed.isShared ? 1 : 0,
+                  senderAvatarColor: _getAvatarColor(feed.sender.id),
+                  receiverAvatarColor: _getAvatarColor(feed.receiver.id),
+                  postId: feed.id,
+                );
+              },
+            );
+          }),
         ),
       ],
     );
   }
+}
+
+// Helper function to generate consistent avatar colors based on user ID
+Color _getAvatarColor(String userId) {
+  final colors = [
+    Colors.purple,
+    AppColors.red,
+    Colors.blue,
+    Colors.green,
+    Colors.orange,
+    Colors.teal,
+    Colors.indigo,
+    Colors.cyan,
+    Colors.brown,
+    Colors.pink,
+  ];
+
+  // Use hash code to get consistent color for same user ID
+  final hash = userId.hashCode;
+  return colors[hash.abs() % colors.length];
 }

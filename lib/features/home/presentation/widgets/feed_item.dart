@@ -80,25 +80,31 @@ class _FeedItemState extends State<FeedItem> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Sender (Angel)
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CommonAvatar(
-                      name: widget.senderName,
-                      radius: 16,
-                      backgroundColor: widget.senderAvatarColor,
-                      textColor: AppColors.white,
-                      fontSize: 12,
-                    ),
-                    SizedBox(width: 12.w),
-                    CommonText(
-                      text: widget.senderName,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.textColor,
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
+                Expanded(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CommonAvatar(
+                        name: widget.senderName,
+                        radius: 16,
+                        backgroundColor: widget.senderAvatarColor,
+                        textColor: AppColors.white,
+                        fontSize: 12,
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: CommonText(
+                          text: widget.senderName,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textColor,
+                          textAlign: TextAlign.left,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 16.width,
 
@@ -107,25 +113,31 @@ class _FeedItemState extends State<FeedItem> {
                 16.width,
 
                 // Receiver (Shawn)
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CommonAvatar(
-                      name: widget.receiverName,
-                      radius: 16,
-                      backgroundColor: widget.receiverAvatarColor,
-                      textColor: AppColors.white,
-                      fontSize: 12,
-                    ),
-                    SizedBox(width: 12.w),
-                    CommonText(
-                      text: widget.receiverName,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.textColor,
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
+                Expanded(
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CommonAvatar(
+                        name: widget.receiverName,
+                        radius: 16,
+                        backgroundColor: widget.receiverAvatarColor,
+                        textColor: AppColors.white,
+                        fontSize: 12,
+                      ),
+                      SizedBox(width: 12.w),
+                      Expanded(
+                        child: CommonText(
+                          text: widget.receiverName,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textColor,
+                          textAlign: TextAlign.left,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

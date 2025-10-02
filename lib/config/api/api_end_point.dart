@@ -18,4 +18,5 @@ class ApiEndPoint {
   static const chats = "chats";
   static const messages = "messages";
   static const getuserProfile = '/user/profile';
+  static const messageFeed = 'message/feed';
 }

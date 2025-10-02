@@ -29,19 +29,29 @@ extension TimeFormater on DateTime {
 
   String get checkTime {
     DateTime currentDateTime = DateTime.now();
-
     Duration difference = currentDateTime.difference(this);
-    if (difference.inDays == 0) {
-      if (difference.inHours == 0) {
-        return ("${difference.inMinutes} minutes ago");
+    
+    if (difference.inDays > 0) {
+      if (difference.inDays == 1) {
+        return "1 day ago";
+      } else if (difference.inDays < 7) {
+        return "${difference.inDays} days ago";
+      } else if (difference.inDays < 30) {
+        int weeks = (difference.inDays / 7).floor();
+        return weeks == 1 ? "1 week ago" : "${weeks} weeks ago";
+      } else if (difference.inDays < 365) {
+        int months = (difference.inDays / 30).floor();
+        return months == 1 ? "1 month ago" : "${months} months ago";
       } else {
-        return ("${difference.inHours} hours ago");
+        int years = (difference.inDays / 365).floor();
+        return years == 1 ? "1 year ago" : "${years} years ago";
       }
+    } else if (difference.inHours > 0) {
+      return difference.inHours == 1 ? "1 hour ago" : "${difference.inHours} hours ago";
+    } else if (difference.inMinutes > 0) {
+      return difference.inMinutes == 1 ? "1 min ago" : "${difference.inMinutes} mins ago";
     } else {
-      var createdAtTime = toIso8601String().split(".")[0];
-      var date = createdAtTime.split("T")[0];
-      var time = createdAtTime.split("T")[1];
-      return "$date at $time";
+      return "Just now";
     }
   }
 }
