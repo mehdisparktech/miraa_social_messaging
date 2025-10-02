@@ -21,6 +21,8 @@ class SignInScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
+
     return Scaffold(
       /// Body Sections Starts here
       body: GetBuilder<SignInController>(
@@ -29,7 +31,7 @@ class SignInScreen extends StatelessWidget {
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 24.h),
               child: Form(
-                key: controller.formKey,
+                key: formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -103,7 +105,7 @@ class SignInScreen extends StatelessWidget {
                     CommonButton(
                       titleText: AppString.signIn,
                       isLoading: controller.isLoading,
-                      onTap: controller.signInUser,
+                      onTap: () => controller.signInUser(formKey),
                     ),
                     SizedBox(height: 24.h),
                     CommonImage(imageSrc: AppImages.or, height: 24),
@@ -113,7 +115,7 @@ class SignInScreen extends StatelessWidget {
                       iconImage: AppIcons.google,
                       titleText: "Sign in with Google",
                       isLoading: controller.isLoading,
-                      onTap: controller.signInUser,
+                      onTap: () => controller.signInUser(formKey),
                       buttonColor: AppColors.transparent,
                       titleColor: AppColors.white,
                       borderColor: AppColors.borderColor,

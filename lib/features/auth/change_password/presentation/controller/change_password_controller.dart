@@ -7,7 +7,6 @@ import '../../../../../utils/app_utils.dart';
 
 class ChangePasswordController extends GetxController {
   bool isLoading = false;
-  final formKey = GlobalKey<FormState>();
 
   TextEditingController currentPasswordController = TextEditingController();
   TextEditingController newPasswordController = TextEditingController();
@@ -15,7 +14,7 @@ class ChangePasswordController extends GetxController {
 
   ///  change password function
 
-  Future<void> changePasswordRepo() async {
+  Future<void> changePasswordRepo(GlobalKey<FormState> formKey) async {
     if (!formKey.currentState!.validate()) return;
     // Get.back();
     // return;
@@ -27,7 +26,10 @@ class ChangePasswordController extends GetxController {
       "newPassword": newPasswordController.text,
       "confirmPassword": confirmPasswordController.text,
     };
-    var response = await ApiService.post(ApiEndPoint.changePassword, body: body);
+    var response = await ApiService.post(
+      ApiEndPoint.changePassword,
+      body: body,
+    );
     if (response.statusCode == 200) {
       Utils.successSnackBar(response.statusCode.toString(), response.message);
 

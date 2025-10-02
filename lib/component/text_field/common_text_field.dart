@@ -33,6 +33,12 @@ class CommonTextField extends StatelessWidget {
     this.onTap,
     this.suffixIcon,
     this.expands = false,
+    // Dropdown specific properties
+    this.isDropdown = false,
+    this.dropdownItems,
+    this.selectedValue,
+    this.onDropdownChanged,
+    this.dropdownColor,
   });
 
   final String? hintText;
@@ -59,8 +65,23 @@ class CommonTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final bool expands;
+
+  // Dropdown specific properties
+  final bool isDropdown;
+  final List<String>? dropdownItems;
+  final String? selectedValue;
+  final Function(String?)? onDropdownChanged;
+  final Color? dropdownColor;
   @override
   Widget build(BuildContext context) {
+    if (isDropdown) {
+      return _buildDropdownField();
+    } else {
+      return _buildTextField();
+    }
+  }
+
+  Widget _buildTextField() {
     return TextFormField(
       maxLines: expands ? null : 1,
       expands: expands,
@@ -98,6 +119,49 @@ class CommonTextField extends StatelessWidget {
         labelStyle: GoogleFonts.poppins(fontSize: 14, color: labelTextColor),
         prefix: CommonText(text: prefixText ?? "", fontWeight: FontWeight.w400),
         suffixIcon: isPassword ? _buildPasswordSuffixIcon() : suffixIcon,
+      ),
+    );
+  }
+
+  Widget _buildDropdownField() {
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(borderRadius.r),
+        border: Border.all(color: borderColor),
+        color: fillColor,
+      ),
+      child: DropdownButtonFormField<String>(
+        dropdownColor: dropdownColor ?? AppColors.primaryColor,
+        value: selectedValue,
+        isExpanded: true,
+        style: TextStyle(fontSize: 14, color: textColor),
+        decoration: InputDecoration(
+          prefixIcon: prefixIcon,
+          prefixIconColor: Colors.grey,
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: paddingHorizontal.w,
+            vertical: paddingVertical.h,
+          ),
+          hintText: hintText,
+          hintStyle: GoogleFonts.poppins(fontSize: 14, color: hintTextColor),
+          labelText: labelText,
+          labelStyle: GoogleFonts.poppins(fontSize: 14, color: labelTextColor),
+        ),
+        items: dropdownItems?.map<DropdownMenuItem<String>>((value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(
+              value,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
+              style: TextStyle(fontSize: 14, color: textColor),
+            ),
+          );
+        }).toList(),
+        onChanged: onDropdownChanged,
+        validator: validator,
       ),
     );
   }

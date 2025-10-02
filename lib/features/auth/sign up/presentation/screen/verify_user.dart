@@ -113,7 +113,7 @@ class _VerifyUserState extends State<VerifyUser> {
                     onTap: controller.time == '00:00'
                         ? () {
                             controller.startTimer();
-                            controller.signUpUser();
+                            controller.signUpUser(formKey);
                           }
                         : () {},
                     child: CommonText(
@@ -143,7 +143,7 @@ class _VerifyUserState extends State<VerifyUser> {
                     onTap: controller.time == '00:00'
                         ? () {
                             controller.startTimer();
-                            controller.signUpUser();
+                            controller.signUpUser(formKey);
                           }
                         : () {},
                     child: CommonText(

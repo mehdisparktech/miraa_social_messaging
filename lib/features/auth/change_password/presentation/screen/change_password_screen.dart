@@ -16,6 +16,7 @@ class ChangePasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -30,7 +31,7 @@ class ChangePasswordScreen extends StatelessWidget {
           return SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: Form(
-              key: controller.formKey,
+              key: formKey,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -47,7 +48,11 @@ class ChangePasswordScreen extends StatelessWidget {
                   ),
 
                   /// New Password section
-                  const CommonText(text: AppString.newPassword, bottom: 8, top: 16),
+                  const CommonText(
+                    text: AppString.newPassword,
+                    bottom: 8,
+                    top: 16,
+                  ),
                   CommonTextField(
                     controller: controller.newPasswordController,
                     hintText: AppString.newPassword,
@@ -57,7 +62,11 @@ class ChangePasswordScreen extends StatelessWidget {
                   ),
 
                   /// confirm Password section
-                  const CommonText(text: AppString.confirmPassword, bottom: 8, top: 16),
+                  const CommonText(
+                    text: AppString.confirmPassword,
+                    bottom: 8,
+                    top: 16,
+                  ),
                   CommonTextField(
                     controller: controller.confirmPasswordController,
                     hintText: AppString.confirmPassword,
@@ -90,7 +99,7 @@ class ChangePasswordScreen extends StatelessWidget {
                   CommonButton(
                     titleText: AppString.confirm,
                     isLoading: controller.isLoading,
-                    onTap: controller.changePasswordRepo,
+                    onTap: () => controller.changePasswordRepo(formKey),
                   ),
                 ],
               ),

@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:miraa_social_messaging/component/other_widgets/common_loader.dart';
 import 'package:miraa_social_messaging/component/screen/error_screen.dart';
-import 'package:miraa_social_messaging/features/setting/presentation/controller/faq_controller.dart';
 import 'package:miraa_social_messaging/utils/constants/app_colors.dart';
 import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
 import 'package:miraa_social_messaging/utils/enum/enum.dart';
@@ -41,7 +40,9 @@ class EditProfile extends StatelessWidget {
           Status.loading => const CommonLoader(),
 
           /// Error Handle here
-          Status.error => ErrorScreen(onTap: ProfileController.instance.getProfileRepo),
+          Status.error => ErrorScreen(
+            onTap: ProfileController.instance.getProfileRepo,
+          ),
 
           /// Show main data here
           Status.completed => SingleChildScrollView(

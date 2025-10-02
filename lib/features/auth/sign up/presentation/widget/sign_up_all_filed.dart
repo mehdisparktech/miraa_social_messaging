@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miraa_social_messaging/component/image/common_image.dart';
+import 'package:miraa_social_messaging/utils/constants/app_colors.dart';
 import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
 import '../../../../../../utils/helpers/other_helper.dart';
 import '../../../../../../utils/constants/app_string.dart';
@@ -51,58 +52,30 @@ class SignUpAllField extends StatelessWidget {
 
         /// Category Selection here
         const CommonText(text: "Category", bottom: 8, top: 16),
-        Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: Colors.grey.shade300),
-          ),
-          child: DropdownButtonFormField<String>(
-            value: controller.selectRole,
-            isExpanded: true, // This ensures the dropdown takes full width
-            decoration: InputDecoration(
-              prefixIcon: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Padding(
-                  padding: const EdgeInsets.all(4.0),
-                  child: CommonImage(imageSrc: AppIcons.person, size: 16),
-                ),
-              ),
-              border: InputBorder.none,
-              contentPadding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 12,
-              ),
-              focusColor: Colors.white,
-              hoverColor: Colors.white,
-              hintText: "Select Category",
-              hintStyle: TextStyle(color: Colors.grey),
+        CommonTextField(
+          isDropdown: true,
+          prefixIcon: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: CommonImage(imageSrc: AppIcons.person, size: 16),
             ),
-            items: controller.selectedOption.map<DropdownMenuItem<String>>((
-              value,
-            ) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(
-                  value,
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 1,
-                  style: TextStyle(fontSize: 14),
-                ),
-              );
-            }).toList(),
-            onChanged: (String? newValue) {
-              if (newValue != null) {
-                controller.setSelectedRole(newValue);
-              }
-            },
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please select a category';
-              }
-              return null;
-            },
           ),
+          hintText: "Select Category",
+          dropdownItems: controller.selectedOption.cast<String>(),
+          selectedValue: controller.selectRole,
+          onDropdownChanged: (String? newValue) {
+            if (newValue != null) {
+              controller.setSelectedRole(newValue);
+            }
+          },
+          validator: (value) {
+            if (value == null || value.isEmpty) {
+              return 'Please select a category';
+            }
+            return null;
+          },
+          dropdownColor: AppColors.primaryColor,
         ),
 
         /// User Email here

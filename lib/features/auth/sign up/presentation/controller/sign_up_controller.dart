@@ -15,7 +15,6 @@ import '../../../../../utils/app_utils.dart';
 
 class SignUpController extends GetxController {
   /// Sign Up Form Key
-  final signUpFormKey = GlobalKey<FormState>();
 
   bool isPopUpOpen = false;
   bool isLoading = false;
@@ -88,8 +87,9 @@ class SignUpController extends GetxController {
     update();
   }
 
-  signUpUser() async {
+  signUpUser(GlobalKey<FormState> signUpFormKey) async {
     if (!signUpFormKey.currentState!.validate()) return;
+
     isLoading = true;
     update();
 

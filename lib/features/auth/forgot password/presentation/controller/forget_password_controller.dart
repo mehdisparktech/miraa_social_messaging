@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:miraa_social_messaging/utils/constants/app_string.dart';
 
 import '../../../../../config/route/app_routes.dart';
 import '../../../../../services/api/api_service.dart';
