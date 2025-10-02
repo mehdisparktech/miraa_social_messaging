@@ -21,4 +21,5 @@ class ApiEndPoint {
   static const messageFeed = 'message/feed';
   static const sendMessage = 'message';
   static const comments = 'comment';
+  static const reactions = 'reaction';
 }
