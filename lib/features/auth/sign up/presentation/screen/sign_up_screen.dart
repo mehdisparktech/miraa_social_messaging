@@ -56,6 +56,7 @@ class SignUpScreen extends StatelessWidget {
 
                   16.height,
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Checkbox(
                         activeColor: AppColors.yellow,
@@ -73,43 +74,45 @@ class SignUpScreen extends StatelessWidget {
                           controller.update();
                         },
                       ),
-                      RichText(
-                        maxLines: 2,
-                        text: TextSpan(
-                          children: [
-                            TextSpan(
-                              text: "I agree to the ",
-                              style: GoogleFonts.poppins(
-                                color: AppColors.textColor,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
+                      Expanded(
+                        child: RichText(
+                          maxLines: 3,
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "I agree to the ",
+                                style: GoogleFonts.poppins(
+                                  color: AppColors.textColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                            TextSpan(
-                              text: "Terms of Service ",
-                              style: GoogleFonts.poppins(
-                                color: AppColors.primaryColor,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
+                              TextSpan(
+                                text: "Terms of Service ",
+                                style: GoogleFonts.poppins(
+                                  color: AppColors.primaryColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                            TextSpan(
-                              text: "and ",
-                              style: GoogleFonts.poppins(
-                                color: AppColors.textColor,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
+                              TextSpan(
+                                text: "and ",
+                                style: GoogleFonts.poppins(
+                                  color: AppColors.textColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                            TextSpan(
-                              text: "Privacy Policy ",
-                              style: GoogleFonts.poppins(
-                                color: AppColors.primaryColor,
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
+                              TextSpan(
+                                text: "Privacy Policy ",
+                                style: GoogleFonts.poppins(
+                                  color: AppColors.primaryColor,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],

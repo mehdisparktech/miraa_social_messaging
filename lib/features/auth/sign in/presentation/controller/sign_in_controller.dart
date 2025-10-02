@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:miraa_social_messaging/config/route/app_routes.dart';
 import '../../../../../services/api/api_service.dart';
 import '../../../../../config/api/api_end_point.dart';
 import '../../../../../services/storage/storage_keys.dart';
@@ -29,7 +30,7 @@ class SignInController extends GetxController {
     update();
 
     Map<String, String> body = {
-      "email": emailController.text,
+      "userName": emailController.text,
       "password": passwordController.text,
     };
 
@@ -42,26 +43,26 @@ class SignInController extends GetxController {
       var data = response.data;
 
       LocalStorage.token = data['data']["accessToken"];
-      LocalStorage.userId = data['data']["attributes"]["_id"];
-      LocalStorage.myImage = data['data']["attributes"]["image"];
-      LocalStorage.myName = data['data']["attributes"]["fullName"];
+      // LocalStorage.userId = data['data']["attributes"]["_id"];
+      // LocalStorage.myImage = data['data']["attributes"]["image"];
+      // LocalStorage.myName = data['data']["attributes"]["fullName"];
 
-      LocalStorage.myEmail = data['data']["attributes"]["email"];
+      //LocalStorage.myEmail = data['data']["attributes"]["email"];
       LocalStorage.isLogIn = true;
 
       LocalStorage.setBool(LocalStorageKeys.isLogIn, LocalStorage.isLogIn);
       LocalStorage.setString(LocalStorageKeys.token, LocalStorage.token);
-      LocalStorage.setString(LocalStorageKeys.userId, LocalStorage.userId);
-      LocalStorage.setString(LocalStorageKeys.myImage, LocalStorage.myImage);
-      LocalStorage.setString(LocalStorageKeys.myName, LocalStorage.myName);
-      LocalStorage.setString(LocalStorageKeys.myEmail, LocalStorage.myEmail);
+      // LocalStorage.setString(LocalStorageKeys.userId, LocalStorage.userId);
+      // LocalStorage.setString(LocalStorageKeys.myImage, LocalStorage.myImage);
+      // LocalStorage.setString(LocalStorageKeys.myName, LocalStorage.myName);
+      //LocalStorage.setString(LocalStorageKeys.myEmail, LocalStorage.myEmail);
 
       // if (LocalStorage.myRole == 'consultant') {
       //   Get.offAllNamed(AppRoutes.doctorHome);
       // } else {
       //   Get.offAllNamed(AppRoutes.patientsHome);
       // }
-
+      Get.offAllNamed(AppRoutes.home);
       emailController.clear();
       passwordController.clear();
     } else {
