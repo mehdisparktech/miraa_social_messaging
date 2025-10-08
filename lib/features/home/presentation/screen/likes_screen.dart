@@ -32,7 +32,7 @@ class LikesScreen extends GetView<LikesController> {
     switch (controller.status.value) {
       case Status.loading:
         return const Center(child: CircularProgressIndicator());
-      
+
       case Status.error:
         return Center(
           child: Column(
@@ -54,7 +54,7 @@ class LikesScreen extends GetView<LikesController> {
             ],
           ),
         );
-      
+
       case Status.completed:
         return Column(
           children: [
@@ -65,7 +65,10 @@ class LikesScreen extends GetView<LikesController> {
     }
   }
 
-  PreferredSizeWidget _buildAppBar(BuildContext context, LikesController controller) {
+  PreferredSizeWidget _buildAppBar(
+    BuildContext context,
+    LikesController controller,
+  ) {
     return AppBar(
       elevation: 0,
       leading: IconButton(

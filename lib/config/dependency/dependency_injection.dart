@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:miraa_social_messaging/features/home/presentation/controller/comments_controller.dart';
 import 'package:miraa_social_messaging/features/home/presentation/controller/home_controller.dart';
 import 'package:miraa_social_messaging/features/home/presentation/controller/likes_controller.dart';
+import 'package:miraa_social_messaging/features/profile/presentation/controller/comments_controller.dart';
 
 import '../../features/auth/change_password/presentation/controller/change_password_controller.dart';
 import '../../features/auth/forgot password/presentation/controller/forget_password_controller.dart';
@@ -32,5 +33,6 @@ class DependencyInjection extends Bindings {
     Get.lazyPut(() => HomeController(), fenix: true);
     Get.lazyPut(() => CommentsController(), fenix: true);
     Get.lazyPut(() => LikesController(), fenix: true);
+    Get.lazyPut(() => ProfileCommentsController(), fenix: true);
   }
 }

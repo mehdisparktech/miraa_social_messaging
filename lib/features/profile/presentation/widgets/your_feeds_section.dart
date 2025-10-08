@@ -24,7 +24,7 @@ class YourFeedsSection extends StatelessWidget {
               ),
               child: Obx(() {
                 if (controller.isLoadingMessages.value) {
-                  return Container(
+                  return SizedBox(
                     height: 200.h,
                     child: Center(
                       child: CircularProgressIndicator(
@@ -35,7 +35,7 @@ class YourFeedsSection extends StatelessWidget {
                 }
 
                 if (controller.messagesError.value.isNotEmpty) {
-                  return Container(
+                  return SizedBox(
                     height: 200.h,
                     child: Center(
                       child: Column(
@@ -66,7 +66,7 @@ class YourFeedsSection extends StatelessWidget {
                 }
 
                 if (controller.messages.isEmpty) {
-                  return Container(
+                  return SizedBox(
                     height: 200.h,
                     child: Center(
                       child: Text(
@@ -88,7 +88,7 @@ class YourFeedsSection extends StatelessWidget {
                       Divider(color: AppColors.borderColor2, height: 1),
                   itemBuilder: (context, index) {
                     final message = controller.messages[index];
-                    
+
                     // Generate consistent colors based on user IDs
                     final senderColors = [
                       Colors.purple,
@@ -100,7 +100,7 @@ class YourFeedsSection extends StatelessWidget {
                       Colors.indigo,
                       Colors.pink,
                     ];
-                    
+
                     final receiverColors = [
                       AppColors.yellow,
                       Colors.blue,
@@ -111,23 +111,28 @@ class YourFeedsSection extends StatelessWidget {
                       Colors.cyan,
                       Colors.amber,
                     ];
-                    
-                    final senderColorIndex = message.sender.id.hashCode.abs() % senderColors.length;
-                    final receiverColorIndex = message.receiver.id.hashCode.abs() % receiverColors.length;
-                    
+
+                    final senderColorIndex =
+                        message.sender.id.hashCode.abs() % senderColors.length;
+                    final receiverColorIndex =
+                        message.receiver.id.hashCode.abs() %
+                        receiverColors.length;
+
                     // Calculate time ago
                     final now = DateTime.now();
                     final difference = now.difference(message.createdAt);
                     String timeAgo;
-                    
+
                     if (difference.inMinutes < 60) {
                       timeAgo = '${difference.inMinutes} min ago';
                     } else if (difference.inHours < 24) {
-                      timeAgo = '${difference.inHours} hour${difference.inHours > 1 ? 's' : ''} ago';
+                      timeAgo =
+                          '${difference.inHours} hour${difference.inHours > 1 ? 's' : ''} ago';
                     } else {
-                      timeAgo = '${difference.inDays} day${difference.inDays > 1 ? 's' : ''} ago';
+                      timeAgo =
+                          '${difference.inDays} day${difference.inDays > 1 ? 's' : ''} ago';
                     }
-                    
+
                     return FeedItem(
                       senderName: message.sender.fullName,
                       receiverName: message.receiver.fullName,

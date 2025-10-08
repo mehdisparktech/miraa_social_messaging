@@ -9,14 +9,14 @@ import '../../data/model/comment_model.dart';
 
 class CommentsController extends GetxController {
   final TextEditingController commentController = TextEditingController();
-  
+
   // Observable state variables
   RxList<CommentItemModel> comments = <CommentItemModel>[].obs;
   RxBool isLoading = true.obs;
   RxBool isPosting = false.obs;
   RxString error = ''.obs;
   RxInt totalComments = 0.obs;
-  
+
   // Post ID for API calls
   late String postId;
 
@@ -39,20 +39,18 @@ class CommentsController extends GetxController {
       isLoading.value = true;
       error.value = '';
 
-      final response = await ApiService.get(
-        '${ApiEndPoint.comments}/$postId',
-      );
+      final response = await ApiService.get('${ApiEndPoint.comments}/$postId');
 
       if (response.statusCode == 200) {
         final commentResponse = CommentResponseModel.fromJson(
           Map<String, dynamic>.from(response.data),
         );
-        
+
         comments.value = commentResponse.data;
         totalComments.value = commentResponse.meta.total;
       } else {
         error.value = 'Failed to load comments';
-        
+
         Fluttertoast.showToast(
           msg: "Failed to load comments",
           toastLength: Toast.LENGTH_SHORT,
@@ -64,7 +62,7 @@ class CommentsController extends GetxController {
       }
     } catch (e) {
       error.value = 'Error loading comments: ${e.toString()}';
-      
+
       Fluttertoast.showToast(
         msg: "Error loading comments",
         toastLength: Toast.LENGTH_SHORT,
@@ -113,13 +111,14 @@ class CommentsController extends GetxController {
             msg: response.data['message'] ?? "Failed to post comment",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
-            backgroundColor: AppColors.red,
+            backgroundColor: AppColors.primaryColor,
             textColor: AppColors.white,
           );
+          fetchComments();
 
           // Re-enable the input field
           isPosting.value = false;
-          
+
           // Restore the text to the input field so user can retry
           commentController.text = content;
         }
@@ -135,7 +134,7 @@ class CommentsController extends GetxController {
 
         // Re-enable the input field
         isPosting.value = false;
-        
+
         // Restore the text to the input field so user can retry
         commentController.text = content;
       }
