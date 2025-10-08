@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:miraa_social_messaging/component/image/common_image.dart';
 import 'package:miraa_social_messaging/utils/constants/app_icons.dart';
-import 'package:miraa_social_messaging/utils/extensions/extension.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../component/image/common_avatar.dart';
 import '../../../../component/button/action_button.dart';
@@ -80,53 +79,67 @@ class _FeedItemState extends State<FeedItem> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Sender (Angel)
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CommonAvatar(
-                      name: widget.senderName,
-                      radius: 16,
-                      backgroundColor: widget.senderAvatarColor,
-                      textColor: AppColors.white,
-                      fontSize: 12,
-                    ),
-                    SizedBox(width: 12.w),
-                    CommonText(
-                      text: widget.senderName,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.textColor,
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CommonAvatar(
+                        name: widget.senderName,
+                        radius: 16,
+                        backgroundColor: widget.senderAvatarColor,
+                        textColor: AppColors.white,
+                        fontSize: 12,
+                      ),
+                      SizedBox(width: 12.w),
+                      Flexible(
+                        child: CommonText(
+                          text: widget.senderName,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textColor,
+                          textAlign: TextAlign.left,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                16.width,
+                SizedBox(width: 16.w),
 
                 // Arrow
                 CommonImage(imageSrc: AppIcons.next, size: 24.sp),
 
-                16.width,
+                SizedBox(width: 16.w),
 
                 // Receiver (Shawn)
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CommonAvatar(
-                      name: widget.receiverName,
-                      radius: 16,
-                      backgroundColor: widget.receiverAvatarColor,
-                      textColor: AppColors.white,
-                      fontSize: 12,
-                    ),
-                    SizedBox(width: 12.w),
-                    CommonText(
-                      text: widget.receiverName,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.textColor,
-                      textAlign: TextAlign.left,
-                    ),
-                  ],
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CommonAvatar(
+                        name: widget.receiverName,
+                        radius: 16,
+                        backgroundColor: widget.receiverAvatarColor,
+                        textColor: AppColors.white,
+                        fontSize: 12,
+                      ),
+                      SizedBox(width: 12.w),
+                      Flexible(
+                        child: CommonText(
+                          text: widget.receiverName,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.textColor,
+                          textAlign: TextAlign.left,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
