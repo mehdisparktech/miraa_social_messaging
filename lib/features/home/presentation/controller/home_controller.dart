@@ -42,34 +42,40 @@ class HomeController extends GetxController {
       try {
         String messageText = messageController.text.trim();
 
-        // Create request body
+        // Create request body according to API specification
         Map<String, String> body = {"message": messageText};
 
         // Show loading state
         isLoadingSend(true);
         update();
 
-        // Make API call
+        // Make API call to the specified endpoint
         var response = await ApiService.post(
-          ApiEndPoint.sendMessage,
+          ApiEndPoint.sendMessage, // This uses 'message' endpoint
           body: body,
         );
 
-        if (response.statusCode == 200) {
+        // Check for successful response according to API specification
+        if (response.statusCode == 200 && response.data['success'] == true) {
           // Success - clear the message field
           messageController.clear();
 
-          // Show success message
+          // Show success message from API response
           Fluttertoast.showToast(
-            msg: "Message sent successfully!",
+            msg: response.data['message'] ?? "Message sent successfully!",
             toastLength: Toast.LENGTH_SHORT,
             gravity: ToastGravity.BOTTOM,
             backgroundColor: AppColors.primaryColor,
             textColor: AppColors.white,
+            fontSize: 16.sp,
           );
+
+          // Refresh feed data to show the new message
+          fetchFeedData();
         } else {
-          // Error handling
-          Utils.errorSnackBar(response.statusCode, response.message);
+          // Error handling - show API error message
+          String errorMessage = response.data['message'] ?? "Failed to send message";
+          Utils.errorSnackBar(response.statusCode, errorMessage);
         }
       } catch (e) {
         // Network or other errors
@@ -79,6 +85,16 @@ class HomeController extends GetxController {
         isLoadingSend(false);
         update();
       }
+    } else {
+      // Show validation message if text field is empty
+      Fluttertoast.showToast(
+        msg: "Please write a message before sending",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: AppColors.red,
+        textColor: AppColors.white,
+        fontSize: 16.sp,
+      );
     }
   }
 
