@@ -3,11 +3,15 @@ import 'package:get/get.dart';
 import 'package:miraa_social_messaging/services/storage/storage_services.dart';
 import 'package:miraa_social_messaging/utils/enum/enum.dart';
 import 'package:miraa_social_messaging/utils/helpers/other_helper.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../config/api/api_end_point.dart';
 import '../../../../config/route/app_routes.dart';
 import '../../../../services/api/api_service.dart';
 import '../../../../utils/app_utils.dart';
+import '../../../../utils/constants/app_colors.dart';
+import '../../data/model/message_model.dart';
 
 class ProfileController extends GetxController {
   /// Language List here
@@ -26,6 +30,11 @@ class ProfileController extends GetxController {
   bool isLoading = false;
 
   Status status = Status.completed;
+
+  // Message data for YourFeedsSection
+  RxList<MessageItemModel> messages = <MessageItemModel>[].obs;
+  RxBool isLoadingMessages = false.obs;
+  RxString messagesError = ''.obs;
 
   /// Privacy Policy Controller instance create here
   static ProfileController get instance => Get.put(ProfileController());
@@ -120,6 +129,46 @@ class ProfileController extends GetxController {
   @override
   void onInit() {
     getProfileRepo();
+    fetchMessages();
     super.onInit();
+  }
+
+  /// Fetch messages function here
+  Future<void> fetchMessages() async {
+    try {
+      isLoadingMessages.value = true;
+      messagesError.value = '';
+
+      final response = await ApiService.get(ApiEndPoint.messageList);
+
+      if (response.statusCode == 200) {
+        final messageResponse = MessageResponseModel.fromJson(
+          Map<String, dynamic>.from(response.data),
+        );
+        messages.value = messageResponse.data.data;
+      } else {
+        messagesError.value = 'Failed to load messages';
+        Fluttertoast.showToast(
+          msg: "Failed to load messages",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: AppColors.red,
+          textColor: AppColors.white,
+          fontSize: 14.sp,
+        );
+      }
+    } catch (e) {
+      messagesError.value = 'Error loading messages: ${e.toString()}';
+      Fluttertoast.showToast(
+        msg: "Error loading messages",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: AppColors.red,
+        textColor: AppColors.white,
+        fontSize: 14.sp,
+      );
+    } finally {
+      isLoadingMessages.value = false;
+    }
   }
 }

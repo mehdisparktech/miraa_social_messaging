@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import '../../../../utils/constants/app_colors.dart';
+import '../controller/profile_controller.dart';
 import 'feed_item.dart';
 
 class YourFeedsSection extends StatelessWidget {
@@ -8,115 +10,143 @@ class YourFeedsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> feedData = [
-      {
-        'senderName': 'Angel',
-        'receiverName': 'Shawn',
-        'message':
-            'Remember, every small step forward is still progress. You\'re doing better than you think! ✨',
-        'timeAgo': '2 min ago',
-        'likes': 19,
-        'comments': 12,
-        'shares': 4,
-        'senderAvatarColor': Colors.purple,
-        'receiverAvatarColor': AppColors.yellow,
-      },
-      {
-        'senderName': 'Max',
-        'receiverName': 'Arthur',
-        'message':
-            'Remember, every small step forward is still progress. You\'re doing better than you think! ✨',
-        'timeAgo': '5 min ago',
-        'likes': 8,
-        'comments': 6,
-        'shares': 2,
-        'senderAvatarColor': AppColors.red,
-        'receiverAvatarColor': Colors.blue,
-      },
-      {
-        'senderName': 'Mitchell',
-        'receiverName': 'Eduardo',
-        'message':
-            'Remember, every small step forward is still progress. You\'re doing better than you think! ✨',
-        'timeAgo': '8 min ago',
-        'likes': 22,
-        'comments': 18,
-        'shares': 6,
-        'senderAvatarColor': Colors.purple,
-        'receiverAvatarColor': Colors.green,
-      },
-      {
-        'senderName': 'Marjorie',
-        'receiverName': 'Kyle',
-        'message':
-            'Remember, every small step forward is still progress. You\'re doing better than you think! ✨',
-        'timeAgo': '12 min ago',
-        'likes': 15,
-        'comments': 9,
-        'shares': 3,
-        'senderAvatarColor': Colors.blue,
-        'receiverAvatarColor': Colors.orange,
-      },
-      {
-        'senderName': 'Colleen',
-        'receiverName': 'Shane',
-        'message':
-            'Remember, every small step forward is still progress. You\'re doing better than you think! ✨',
-        'timeAgo': '15 min ago',
-        'likes': 31,
-        'comments': 25,
-        'shares': 8,
-        'senderAvatarColor': Colors.green,
-        'receiverAvatarColor': Colors.red,
-      },
-      {
-        'senderName': 'Esther',
-        'receiverName': 'Courtney',
-        'message':
-            'Remember, every small step forward is still progress. You\'re doing better than you think! ✨',
-        'timeAgo': '18 min ago',
-        'likes': 19,
-        'comments': 14,
-        'shares': 5,
-        'senderAvatarColor': Colors.orange,
-        'receiverAvatarColor': Colors.purple,
-      },
-    ];
+    return GetBuilder<ProfileController>(
+      builder: (controller) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 10.h),
+              decoration: BoxDecoration(
+                color: AppColors.transparent,
+                borderRadius: BorderRadius.circular(10.r),
+                border: Border.all(color: AppColors.borderColor2),
+              ),
+              child: Obx(() {
+                if (controller.isLoadingMessages.value) {
+                  return Container(
+                    height: 200.h,
+                    child: Center(
+                      child: CircularProgressIndicator(
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
+                  );
+                }
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(vertical: 10.h),
-          decoration: BoxDecoration(
-            color: AppColors.transparent,
-            borderRadius: BorderRadius.circular(10.r),
-            border: Border.all(color: AppColors.borderColor2),
-          ),
-          child: ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: feedData.length,
-            separatorBuilder: (context, index) =>
-                Divider(color: AppColors.borderColor2, height: 1),
-            itemBuilder: (context, index) {
-              final feed = feedData[index];
-              return FeedItem(
-                senderName: feed['senderName'],
-                receiverName: feed['receiverName'],
-                message: feed['message'],
-                timeAgo: feed['timeAgo'],
-                likes: feed['likes'],
-                comments: feed['comments'],
-                shares: feed['shares'],
-                senderAvatarColor: feed['senderAvatarColor'],
-                receiverAvatarColor: feed['receiverAvatarColor'],
-                postId: 'post_$index',
-              );
-            },
-          ),
-        ),
-      ],
+                if (controller.messagesError.value.isNotEmpty) {
+                  return Container(
+                    height: 200.h,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.error_outline,
+                            color: AppColors.red,
+                            size: 48.sp,
+                          ),
+                          SizedBox(height: 16.h),
+                          Text(
+                            'Failed to load messages',
+                            style: TextStyle(
+                              color: AppColors.textColor,
+                              fontSize: 16.sp,
+                            ),
+                          ),
+                          SizedBox(height: 16.h),
+                          ElevatedButton(
+                            onPressed: () => controller.fetchMessages(),
+                            child: Text('Retry'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                }
+
+                if (controller.messages.isEmpty) {
+                  return Container(
+                    height: 200.h,
+                    child: Center(
+                      child: Text(
+                        'No messages found',
+                        style: TextStyle(
+                          color: AppColors.body,
+                          fontSize: 16.sp,
+                        ),
+                      ),
+                    ),
+                  );
+                }
+
+                return ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: controller.messages.length,
+                  separatorBuilder: (context, index) =>
+                      Divider(color: AppColors.borderColor2, height: 1),
+                  itemBuilder: (context, index) {
+                    final message = controller.messages[index];
+                    
+                    // Generate consistent colors based on user IDs
+                    final senderColors = [
+                      Colors.purple,
+                      AppColors.red,
+                      Colors.blue,
+                      Colors.green,
+                      Colors.orange,
+                      Colors.teal,
+                      Colors.indigo,
+                      Colors.pink,
+                    ];
+                    
+                    final receiverColors = [
+                      AppColors.yellow,
+                      Colors.blue,
+                      Colors.green,
+                      Colors.orange,
+                      Colors.purple,
+                      Colors.red,
+                      Colors.cyan,
+                      Colors.amber,
+                    ];
+                    
+                    final senderColorIndex = message.sender.id.hashCode.abs() % senderColors.length;
+                    final receiverColorIndex = message.receiver.id.hashCode.abs() % receiverColors.length;
+                    
+                    // Calculate time ago
+                    final now = DateTime.now();
+                    final difference = now.difference(message.createdAt);
+                    String timeAgo;
+                    
+                    if (difference.inMinutes < 60) {
+                      timeAgo = '${difference.inMinutes} min ago';
+                    } else if (difference.inHours < 24) {
+                      timeAgo = '${difference.inHours} hour${difference.inHours > 1 ? 's' : ''} ago';
+                    } else {
+                      timeAgo = '${difference.inDays} day${difference.inDays > 1 ? 's' : ''} ago';
+                    }
+                    
+                    return FeedItem(
+                      senderName: message.sender.fullName,
+                      receiverName: message.receiver.fullName,
+                      message: message.message,
+                      timeAgo: timeAgo,
+                      likes: message.reactionCount,
+                      comments: message.commentCount,
+                      shares: message.isShared ? 1 : 0,
+                      senderAvatarColor: senderColors[senderColorIndex],
+                      receiverAvatarColor: receiverColors[receiverColorIndex],
+                      postId: message.id,
+                    );
+                  },
+                );
+              }),
+            ),
+          ],
+        );
+      },
     );
   }
 }

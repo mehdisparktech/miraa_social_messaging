@@ -20,6 +20,7 @@ class ApiEndPoint {
   static const getuserProfile = '/user/profile';
   static const messageFeed = 'message/feed';
   static const sendMessage = 'message';
+  static const messageList = 'message';
   static const comments = 'comment';
   static const reactions = 'reaction';
 }
