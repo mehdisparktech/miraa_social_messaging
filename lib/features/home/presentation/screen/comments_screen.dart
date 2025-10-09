@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import '../../../../utils/constants/app_colors.dart';
 import '../../../../component/text/common_text.dart';
 import '../../../../component/item/comment_item.dart';
+import '../../../../services/storage/storage_services.dart';
 import '../controller/comments_controller.dart';
 
 class CommentsScreen extends StatelessWidget {
@@ -127,14 +128,19 @@ class CommentsScreen extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           final comment = controller.comments[index];
+          // Check if the current user has liked this comment
+          final bool isLikedByUser = comment.reactions.contains(
+            LocalStorage.userId,
+          );
+
           return CommentItem(
             userName: comment.user.fullName,
             comment: comment.content,
             timeAgo: controller.formatTimeAgo(comment.createdAt),
             likes: comment.reactions.length,
             avatarColor: controller.getAvatarColor(comment.user.id),
-            isLiked: controller.isLiked.value,
-            onLikeTap: () => controller.toggleCommentLike(comment.id),
+            isLiked: isLikedByUser,
+            onLikeTap: () => controller.toggleCommentLike(comment.id, index),
             onLikeTextTap: () => controller.goToLikes(index, comment.id),
           );
         },

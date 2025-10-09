@@ -150,28 +150,86 @@ class CommentsController extends GetxController {
     }
   }
 
-  Future<void> toggleCommentLike(String index) async {
-    // Implement like functionality later
-    // For now, just show a toast
-
-    final response = await ApiService.patch(
-      '${ApiEndPoint.likeReaction}/$index',
-      header: {'Authorization': 'Bearer ${LocalStorage.token}'},
-    );
-
-    if (response.statusCode == 200) {
-      isLiked.value = !isLiked.value;
-      isLiked.refresh();
-      Fluttertoast.showToast(
-        msg: "Like Successfully!",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: AppColors.primaryColor,
-        textColor: AppColors.white,
+  Future<void> toggleCommentLike(String commentId, int commentIndex) async {
+    try {
+      final response = await ApiService.patch(
+        '${ApiEndPoint.likeReaction}/$commentId',
+        header: {'Authorization': 'Bearer ${LocalStorage.token}'},
       );
-    } else {
+
+      if (response.statusCode == 200) {
+        final commentItem = comments[commentIndex];
+        final bool isUserInReactions = commentItem.reactions.contains(
+          LocalStorage.userId,
+        );
+
+        // Check if the API response indicates "reacted" or "unreacted"
+        if (response.data['data'] == "reacted") {
+          // User has liked the comment
+          if (!isUserInReactions) {
+            // Add user to reactions if not already present
+            final updatedComment = CommentItemModel(
+              id: commentItem.id,
+              message: commentItem.message,
+              user: commentItem.user,
+              content: commentItem.content,
+              reactions: [...commentItem.reactions, LocalStorage.userId],
+              createdAt: commentItem.createdAt,
+              updatedAt: commentItem.updatedAt,
+              version: commentItem.version,
+            );
+            comments[commentIndex] = updatedComment;
+          }
+
+          Fluttertoast.showToast(
+            msg: "Liked successfully!",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: AppColors.primaryColor,
+            textColor: AppColors.white,
+          );
+        } else if (response.data['data'] == "unreacted") {
+          // User has unliked the comment
+          if (isUserInReactions) {
+            // Remove user from reactions
+            final updatedReactions = commentItem.reactions
+                .where((id) => id != LocalStorage.userId)
+                .toList();
+            final updatedComment = CommentItemModel(
+              id: commentItem.id,
+              message: commentItem.message,
+              user: commentItem.user,
+              content: commentItem.content,
+              reactions: updatedReactions,
+              createdAt: commentItem.createdAt,
+              updatedAt: commentItem.updatedAt,
+              version: commentItem.version,
+            );
+            comments[commentIndex] = updatedComment;
+          }
+
+          Fluttertoast.showToast(
+            msg: "Unliked successfully!",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: AppColors.primaryColor,
+            textColor: AppColors.white,
+          );
+        }
+
+        comments.refresh(); // Update the UI
+      } else {
+        Fluttertoast.showToast(
+          msg: "Failed to process like action",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: AppColors.red,
+          textColor: AppColors.white,
+        );
+      }
+    } catch (e) {
       Fluttertoast.showToast(
-        msg: "Failed to like comment",
+        msg: "Error processing like action",
         toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: AppColors.red,
