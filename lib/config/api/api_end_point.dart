@@ -23,4 +23,5 @@ class ApiEndPoint {
   static const messageList = 'message';
   static const comments = 'comment';
   static const reactions = 'reaction';
+  static const likeReaction = 'reaction/toggle';
 }

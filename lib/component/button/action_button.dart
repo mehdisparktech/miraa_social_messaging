@@ -13,6 +13,7 @@ class ActionButton extends StatefulWidget {
   final Color? inactiveColor;
   final double iconSize;
   final double fontSize;
+  final VoidCallback? onLikeTap;
 
   const ActionButton({
     super.key,
@@ -24,6 +25,7 @@ class ActionButton extends StatefulWidget {
     this.inactiveColor,
     this.iconSize = 16,
     this.fontSize = 12,
+    this.onLikeTap,
   });
 
   @override
@@ -60,26 +62,32 @@ class _ActionButtonState extends State<ActionButton>
         ? (widget.activeColor ?? AppColors.primaryColor)
         : (widget.inactiveColor ?? AppColors.textColor);
 
-    return GestureDetector(
-      onTapDown: _onTapDown,
-      onTapUp: _onTapUp,
-      onTapCancel: _onTapCancel,
-      onTap: widget.onTap,
-      child: Transform.scale(
-        scale: (1 - _animationController.value).toDouble(),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CommonImage(imageSrc: widget.iconImage, size: widget.iconSize),
-            SizedBox(width: 8.w),
-            CommonText(
+    return Transform.scale(
+      scale: (1 - _animationController.value).toDouble(),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            onTapDown: _onTapDown,
+            onTapUp: _onTapUp,
+            onTapCancel: _onTapCancel,
+            onTap: widget.onTap,
+            child: CommonImage(
+              imageSrc: widget.iconImage,
+              size: widget.iconSize,
+            ),
+          ),
+          SizedBox(width: 8.w),
+          GestureDetector(
+            onTap: widget.onLikeTap ?? () {},
+            child: CommonText(
               text: widget.count.toString().padLeft(2, '0'),
               fontSize: widget.fontSize,
               fontWeight: FontWeight.w400,
               color: color,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

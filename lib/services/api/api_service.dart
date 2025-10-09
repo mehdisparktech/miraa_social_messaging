@@ -61,10 +61,9 @@ class ApiService {
           await MultipartFile.fromFile(
             imagePath,
             filename: "$imageName.$extension",
-            contentType:
-                mimeType != null
-                    ? DioMediaType.parse(mimeType)
-                    : DioMediaType.parse("image/jpeg"),
+            contentType: mimeType != null
+                ? DioMediaType.parse(mimeType)
+                : DioMediaType.parse("image/jpeg"),
           ),
         ),
       );
@@ -154,8 +153,9 @@ Dio _getMyDio() {
           ..receiveDataWhenStatusError = true
           ..responseType = ResponseType.json
           ..receiveTimeout = const Duration(seconds: 30)
-          ..baseUrl =
-              options.baseUrl.startsWith("http") ? "" : ApiEndPoint.baseUrl;
+          ..baseUrl = options.baseUrl.startsWith("http")
+              ? ""
+              : ApiEndPoint.baseUrl;
         handler.next(options);
       },
       onResponse: (response, handler) {

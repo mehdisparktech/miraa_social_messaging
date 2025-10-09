@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:miraa_social_messaging/features/home/presentation/screen/likes_screen.dart';
+import 'package:miraa_social_messaging/services/storage/storage_services.dart';
 import '../../../../config/api/api_end_point.dart';
 import '../../../../services/api/api_service.dart';
 import '../../../../utils/constants/app_colors.dart';
@@ -16,6 +18,7 @@ class CommentsController extends GetxController {
   RxBool isPosting = false.obs;
   RxString error = ''.obs;
   RxInt totalComments = 0.obs;
+  RxBool isLiked = false.obs;
 
   // Post ID for API calls
   late String postId;
@@ -42,12 +45,18 @@ class CommentsController extends GetxController {
       final response = await ApiService.get('${ApiEndPoint.comments}/$postId');
 
       if (response.statusCode == 200) {
+        // Parse the response using CommentResponseModel
         final commentResponse = CommentResponseModel.fromJson(
           Map<String, dynamic>.from(response.data),
         );
 
+        // Update the comments list with the parsed data
         comments.value = commentResponse.data;
+
+        // Update total comments from meta data
         totalComments.value = commentResponse.meta.total;
+
+        comments.refresh();
       } else {
         error.value = 'Failed to load comments';
 
@@ -141,13 +150,42 @@ class CommentsController extends GetxController {
     }
   }
 
-  void toggleCommentLike(int index) {
+  Future<void> toggleCommentLike(String index) async {
     // Implement like functionality later
     // For now, just show a toast
-    Fluttertoast.showToast(
-      msg: "Like functionality coming soon!",
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM,
+
+    final response = await ApiService.patch(
+      '${ApiEndPoint.likeReaction}/$index',
+      header: {'Authorization': 'Bearer ${LocalStorage.token}'},
+    );
+
+    if (response.statusCode == 200) {
+      isLiked.value = !isLiked.value;
+      isLiked.refresh();
+      Fluttertoast.showToast(
+        msg: "Like Successfully!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: AppColors.primaryColor,
+        textColor: AppColors.white,
+      );
+    } else {
+      Fluttertoast.showToast(
+        msg: "Failed to like comment",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: AppColors.red,
+        textColor: AppColors.white,
+      );
+    }
+  }
+
+  void goToLikes(int index, String commentId) {
+    Get.to(
+      () => LikesScreen(
+        postId: commentId,
+        totalLikes: comments[index].reactions.length,
+      ),
     );
   }
 

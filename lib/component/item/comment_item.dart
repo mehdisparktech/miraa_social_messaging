@@ -14,6 +14,7 @@ class CommentItem extends StatelessWidget {
   final Color avatarColor;
   final bool isLiked;
   final VoidCallback? onLikeTap;
+  final VoidCallback? onLikeTextTap;
 
   const CommentItem({
     super.key,
@@ -24,6 +25,7 @@ class CommentItem extends StatelessWidget {
     required this.avatarColor,
     this.isLiked = false,
     this.onLikeTap,
+    this.onLikeTextTap,
   });
 
   @override
@@ -91,6 +93,7 @@ class CommentItem extends StatelessWidget {
                   activeColor: AppColors.red,
                   iconSize: 14,
                   fontSize: 11,
+                  onLikeTap: onLikeTextTap ?? () {},
                 ),
               ],
             ),

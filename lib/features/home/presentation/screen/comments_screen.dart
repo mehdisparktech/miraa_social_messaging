@@ -57,14 +57,16 @@ class CommentsScreen extends StatelessWidget {
         children: [
           Icon(Icons.chat_bubble_outline, color: AppColors.body, size: 20.sp),
           SizedBox(width: 12.w),
-          Obx(() => CommonText(
-            text:
-                '${controller.totalComments.value.toString().padLeft(2, '0')} People Comments on this message',
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: AppColors.body,
-            textAlign: TextAlign.left,
-          )),
+          Obx(
+            () => CommonText(
+              text:
+                  '${controller.totalComments.value.toString().padLeft(2, '0')} People Comments on this message',
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: AppColors.body,
+              textAlign: TextAlign.left,
+            ),
+          ),
         ],
       ),
     );
@@ -113,28 +115,31 @@ class CommentsScreen extends StatelessWidget {
   }
 
   Widget _buildCommentsList(CommentsController controller) {
-    return Obx(() => ListView.separated(
-      padding: EdgeInsets.zero,
-      itemCount: controller.comments.length,
-      separatorBuilder: (context, index) => Divider(
-        color: AppColors.borderColor2,
-        height: 1,
-        indent: 20.w,
-        endIndent: 20.w,
+    return Obx(
+      () => ListView.separated(
+        padding: EdgeInsets.zero,
+        itemCount: controller.comments.length,
+        separatorBuilder: (context, index) => Divider(
+          color: AppColors.borderColor2,
+          height: 1,
+          indent: 20.w,
+          endIndent: 20.w,
+        ),
+        itemBuilder: (context, index) {
+          final comment = controller.comments[index];
+          return CommentItem(
+            userName: comment.user.fullName,
+            comment: comment.content,
+            timeAgo: controller.formatTimeAgo(comment.createdAt),
+            likes: comment.reactions.length,
+            avatarColor: controller.getAvatarColor(comment.user.id),
+            isLiked: controller.isLiked.value,
+            onLikeTap: () => controller.toggleCommentLike(comment.id),
+            onLikeTextTap: () => controller.goToLikes(index, comment.id),
+          );
+        },
       ),
-      itemBuilder: (context, index) {
-        final comment = controller.comments[index];
-        return CommentItem(
-          userName: comment.user.fullName,
-          comment: comment.content,
-          timeAgo: controller.formatTimeAgo(comment.createdAt),
-          likes: comment.reactions.length,
-          avatarColor: controller.getAvatarColor(comment.user.id),
-          isLiked: false, // You can implement like functionality later
-          onLikeTap: () => controller.toggleCommentLike(index),
-        );
-      },
-    ));
+    );
   }
 
   Widget _buildCommentInput(CommentsController controller) {
@@ -173,29 +178,33 @@ class CommentsScreen extends StatelessWidget {
             ),
           ),
           SizedBox(width: 12.w),
-          Obx(() => GestureDetector(
-            onTap: controller.isPosting.value ? null : controller.sendComment,
-            child: Container(
-              width: 48.w,
-              height: 48.w,
-              decoration: BoxDecoration(
-                color: controller.isPosting.value ? AppColors.body : AppColors.white,
-                shape: BoxShape.circle,
-              ),
-              child: controller.isPosting.value
-                  ? SizedBox(
-                      width: 20.w,
-                      height: 20.w,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2,
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          AppColors.black,
+          Obx(
+            () => GestureDetector(
+              onTap: controller.isPosting.value ? null : controller.sendComment,
+              child: Container(
+                width: 48.w,
+                height: 48.w,
+                decoration: BoxDecoration(
+                  color: controller.isPosting.value
+                      ? AppColors.body
+                      : AppColors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: controller.isPosting.value
+                    ? SizedBox(
+                        width: 20.w,
+                        height: 20.w,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            AppColors.black,
+                          ),
                         ),
-                      ),
-                    )
-                  : Icon(Icons.send, color: AppColors.black, size: 20.sp),
+                      )
+                    : Icon(Icons.send, color: AppColors.black, size: 20.sp),
+              ),
             ),
-          )),
+          ),
         ],
       ),
     );
